@@ -1,6 +1,7 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ky">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,6 +12,7 @@
 </head>
 <body>
 <div id="app" v-cloak>
+    <h1>{% trans "Hello World" %}</h1>
     <p>[[ message ]]</p>
     <div v-for="i in people">
         <span>[[i.name]] - [[i.surname]]</span>
