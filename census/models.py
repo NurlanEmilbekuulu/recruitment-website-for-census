@@ -32,6 +32,10 @@ class Employee(models.Model):
     photo = models.ImageField(_('photo'), upload_to='employee/photos')
     role = models.PositiveSmallIntegerField(_('role'), choices=ROLE_CHOICES, default=1)
 
+    class Meta:
+        verbose_name = _("Employee")
+        verbose_name_plural = _('Employees')
+
 
 class District(models.Model):
     region = models.CharField(_('region'), max_length=2, choices=REGION_CHOICES)
@@ -41,13 +45,18 @@ class District(models.Model):
     center = models.CharField(_('center of the district'), max_length=255)
     stat_address = models.CharField(_('stat address'), max_length=255)
     counter = models.CharField(max_length=6, default='000001')
-    number = models.CharField(max_length=2, null=True, blank=True)
+    number = models.CharField(_('id of the district'), max_length=2, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("District")
+        verbose_name_plural = _('Districts')
+        ordering = ['region']
 
 
 class Territory(models.Model):
     name = models.CharField(_('name'), max_length=90)
     code = models.CharField(_('code'), max_length=14, unique=True)
-    district = models.ForeignKey(District, models.CASCADE)
+    district = models.ForeignKey(District, models.CASCADE, verbose_name=_('district'))
 
     class Meta:
         verbose_name = _('Territory')

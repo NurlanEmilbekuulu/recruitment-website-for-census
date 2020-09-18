@@ -30,7 +30,7 @@ msgstr ""
 
 #: .\census\models.py:12
 msgid "Census Taker"
-msgstr ""
+msgstr "Переписчик"
 
 #: .\census\models.py:14
 msgid "last name"

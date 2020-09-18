@@ -17,3 +17,4 @@ class TerritoryAdmin(admin.TabularInline):
 class DistrictAdmin(admin.ModelAdmin):
     exclude = ('counter',)
     inlines = [TerritoryAdmin]
+    list_filter = ('region',)

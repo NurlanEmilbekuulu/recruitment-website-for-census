@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-17 15:28+0600\n"
+"POT-Creation-Date: 2020-09-18 11:20+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,89 +20,127 @@ msgstr ""
 
 #: .\census\models.py:10
 msgid "Coordinator"
-msgstr ""
+msgstr "Координатор"
 
 #: .\census\models.py:11
 msgid "Instructor"
-msgstr ""
+msgstr "Инструктор"
 
 #: .\census\models.py:12
 msgid "Census Taker"
-msgstr ""
+msgstr "Каттоочу"
 
 #: .\census\models.py:14
 msgid "last name"
-msgstr ""
+msgstr "фамилиясы"
 
 #: .\census\models.py:15
 msgid "first name"
-msgstr ""
+msgstr "аты"
 
 #: .\census\models.py:16
 msgid "patronymic"
-msgstr ""
+msgstr "атасынын аты"
 
 #: .\census\models.py:17
 msgid "birth day"
-msgstr ""
+msgstr "туулган күн"
 
 #: .\census\models.py:18
 msgid "address"
-msgstr ""
+msgstr "дарек"
 
 #: .\census\models.py:21
 msgid "serial"
-msgstr ""
+msgstr "паспорт сериасы"
 
 #: .\census\models.py:27
 msgid "passport number"
-msgstr ""
+msgstr "паспорт номери"
 
 #: .\census\models.py:31
 msgid "PIN"
-msgstr ""
+msgstr "ПИН"
 
 #: .\census\models.py:32
 msgid "photo"
-msgstr ""
+msgstr "сүрөт"
 
 #: .\census\models.py:33
 msgid "role"
-msgstr ""
+msgstr "ролу"
+
+#: .\census\models.py:36
+msgid "Employee"
+msgstr "Кызматкер"
 
 #: .\census\models.py:37
-msgid "region"
-msgstr ""
+msgid "Employees"
+msgstr "Кызматкерлер"
 
-#: .\census\models.py:38
+#: .\census\models.py:42
+msgid "region"
+msgstr "область"
+
+#: .\census\models.py:43 .\census\models.py:58
 msgid "name"
 msgstr ""
 
-#: .\census\models.py:39
+#: .\census\models.py:44
 msgid "Мам админстрация башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:40
+#: .\census\models.py:45
 msgid "Статистика башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:41
+#: .\census\models.py:46
 msgid "center of the district"
-msgstr ""
+msgstr "райондун борбору"
 
-#: .\census\models.py:42
+#: .\census\models.py:47
 msgid "stat address"
-msgstr ""
+msgstr "статистика бөлүмдүн дареги"
 
-#: .\core\settings.py:87
+#: .\census\models.py:49
+#, fuzzy
+#| msgid "center of the district"
+msgid "id of the district"
+msgstr "райондун борбору"
+
+#: .\census\models.py:52
+msgid "District"
+msgstr "Район"
+
+#: .\census\models.py:53
+msgid "Districts"
+msgstr "Райондор"
+
+#: .\census\models.py:59
+msgid "code"
+msgstr "код"
+
+#: .\census\models.py:60
+msgid "district"
+msgstr "район"
+
+#: .\census\models.py:63
+msgid "Territory"
+msgstr "Аймак"
+
+#: .\census\models.py:64
+msgid "Territories"
+msgstr "Аймактар"
+
+#: .\core\settings.py:94
 msgid "Kyrgyz"
-msgstr ""
+msgstr "Кыргызча"
 
-#: .\core\settings.py:88
+#: .\core\settings.py:95
 msgid "Russian"
-msgstr ""
+msgstr "Орусча"
 
-#: .\templates\base.html:15
+#: .\templates\index.html:7
 msgid "Hello World"
 msgstr "Салам дүйнө"
 
