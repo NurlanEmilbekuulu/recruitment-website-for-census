@@ -9,4 +9,5 @@ from django.urls import path, include
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('census.urls')),
+    path('api/', include('census.api.urls'))
 )

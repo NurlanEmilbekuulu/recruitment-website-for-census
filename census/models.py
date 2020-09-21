@@ -36,6 +36,10 @@ class Employee(models.Model):
         verbose_name = _("Employee")
         verbose_name_plural = _('Employees')
 
+    @property
+    def get_role(self):
+        return dict(Employee.ROLE_CHOICES).get(self.role)
+
 
 class District(models.Model):
     region = models.CharField(_('region'), max_length=2, choices=REGION_CHOICES)

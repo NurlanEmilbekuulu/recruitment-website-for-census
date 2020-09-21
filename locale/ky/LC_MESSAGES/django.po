@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 11:20+0600\n"
+"POT-Creation-Date: 2020-09-21 09:53+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,75 +74,87 @@ msgstr "ролу"
 msgid "Employee"
 msgstr "Кызматкер"
 
-#: .\census\models.py:37
+#: .\census\models.py:37 .\templates\base.html:49
 msgid "Employees"
 msgstr "Кызматкерлер"
 
-#: .\census\models.py:42
+#: .\census\models.py:41
 msgid "region"
 msgstr "область"
 
-#: .\census\models.py:43 .\census\models.py:58
+#: .\census\models.py:42 .\census\models.py:57
 msgid "name"
 msgstr ""
 
-#: .\census\models.py:44
+#: .\census\models.py:43
 msgid "Мам админстрация башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:45
+#: .\census\models.py:44
 msgid "Статистика башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:46
+#: .\census\models.py:45
 msgid "center of the district"
 msgstr "райондун борбору"
 
-#: .\census\models.py:47
+#: .\census\models.py:46
 msgid "stat address"
 msgstr "статистика бөлүмдүн дареги"
 
-#: .\census\models.py:49
+#: .\census\models.py:48
 #, fuzzy
 #| msgid "center of the district"
 msgid "id of the district"
 msgstr "райондун борбору"
 
-#: .\census\models.py:52
+#: .\census\models.py:51
 msgid "District"
 msgstr "Район"
 
-#: .\census\models.py:53
+#: .\census\models.py:52
 msgid "Districts"
 msgstr "Райондор"
 
-#: .\census\models.py:59
+#: .\census\models.py:58
 msgid "code"
 msgstr "код"
 
-#: .\census\models.py:60
+#: .\census\models.py:59
 msgid "district"
 msgstr "район"
 
-#: .\census\models.py:63
+#: .\census\models.py:62
 msgid "Territory"
 msgstr "Аймак"
 
-#: .\census\models.py:64
+#: .\census\models.py:63
 msgid "Territories"
 msgstr "Аймактар"
 
-#: .\core\settings.py:94
+#: .\core\settings.py:95 .\templates\base.html:55
 msgid "Kyrgyz"
 msgstr "Кыргызча"
 
-#: .\core\settings.py:95
+#: .\core\settings.py:96 .\templates\base.html:58
 msgid "Russian"
 msgstr "Орусча"
 
-#: .\templates\index.html:7
-msgid "Hello World"
-msgstr "Салам дүйнө"
+#: .\templates\base.html:36 .\templates\index.html:7
+msgid "Census"
+msgstr "Эл каттоо"
+
+#: .\templates\base.html:46
+msgid "Home"
+msgstr "Башкы бет"
+
+#: .\templates\index.html:31
+msgid "Photo"
+msgstr "Cүрөт"
+
+#: .\templates\index.html:35
+msgid "Save"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:7
 msgid "Messages"
@@ -1328,3 +1340,6 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:409
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "Hello World"
+#~ msgstr "Салам дүйнө"

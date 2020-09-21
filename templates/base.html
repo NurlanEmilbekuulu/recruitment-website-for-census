@@ -5,33 +5,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" type="image/ico" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Census 2020</title>
+
+    {% block title %}{% endblock title %}
+
+    <style>
+        .navbar-toggler {
+            border: 0;
+        }
+
+        .navbar-toggler:focus,
+        .navbar-toggler:active,
+        .navbar-toggler-icon:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    </style>
 
     {% block style %}{% endblock style %}
 </head>
 <body>
 <div id="app" v-cloak>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Census</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                {% trans "Census" %}
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile"
+                    aria-controls="navbar-mobile" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="/">{% trans "Home" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{% trans "Employees" %}</a>
+                        <a class="nav-link" href="{% url 'employees' %}">{% trans "Employees" %}</a>
                     </li>
                 </ul>
-                <div class="dropdown-divider" ></div>
+                <div class="dropdown-divider"></div>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#">{% trans "Kyrgyz" %}</a>
@@ -53,16 +71,25 @@
 <script src="{% static 'js/vue.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 
+
 <script>
-    new Vue({
+    let app = new Vue({
         el: '#app',
         delimiters: ['[[', ']]'],
         data: {
-            message: 'Привет, Vue!',
-
-            people: []
+            last_name: '',
+            first_name: '',
+            patronymic: '',
+            birth_day: '',
+            address: '',
+            serial: 'ID',
+            passport_number: '',
+            PIN: '',
+            role: '1'
         }
     })
 </script>
+
+{% block js %}{% endblock js %}
 </body>
 </html>
