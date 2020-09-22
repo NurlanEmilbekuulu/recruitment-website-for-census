@@ -9,14 +9,14 @@
 
 {% block style %}
     <style>
-
+        label.
     </style>
 {% endblock style %}
 
 {% block content %}
 
     <div class="container pt-3" style="margin-top: 56px;">
-        <form>
+        <form id="app" @submit="submit" v-cloak>
             {% for field in form.visible_fields %}
                 {% if field.name != "photo" %}
                     <div class="form-group">
@@ -26,14 +26,52 @@
                 {% endif %}
             {% endfor %}
 
-            <label class="btn btn-primary btn-block">
+            <label class="btn btn-primary btn-block mt-3">
                 <i class="fa fa-image"></i>
-                <span>{% trans "Photo" %}</span>
-                <input type="file" style="display: none;" name="image">
+                <span>{% trans "Upload photo" %}</span>
+                <input type="file" name="photo" accept="image/*" id="id_photo"
+                       style="display: none;" v-model="photo">
             </label>
 
-            <button type="submit" class="btn btn-primary btn-block">{% trans "Save" %}</button>
+            <button class="btn btn-primary btn-block mt-3 mb-5"
+                    :disabled="validated == 1">{% trans "Save" %}</button>
+            {#            <button type="submit" class="btn btn-primary btn-block mt-3 mb-5" v-else @click="save=!save">#}
+            {#                <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>#}
+            {#                <span class="sr-only">Loading...</span>#}
+            {#            </button>#}
         </form>
     </div>
 
 {% endblock content %}
+
+{% block js %}
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: {
+                last_name: '',
+                first_name: '',
+                patronymic: '',
+                birth_day: '',
+                address: '',
+                serial: 'ID',
+                passport_number: '',
+                PIN: '',
+                role: '1',
+                photo: '',
+                save: false,
+                validated: 0
+            },
+
+            methods: {
+                submit: function (event) {
+                    console.log(this.first_name);
+                    event.preventDefault();
+                }
+            }
+        })
+    </script>
+
+{% endblock js %}

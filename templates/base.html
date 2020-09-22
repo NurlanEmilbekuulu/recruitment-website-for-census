@@ -28,7 +28,7 @@
     {% block style %}{% endblock style %}
 </head>
 <body>
-<div id="app" v-cloak>
+<div>
     <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/">
@@ -70,25 +70,6 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/vue.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-
-
-<script>
-    let app = new Vue({
-        el: '#app',
-        delimiters: ['[[', ']]'],
-        data: {
-            last_name: '',
-            first_name: '',
-            patronymic: '',
-            birth_day: '',
-            address: '',
-            serial: 'ID',
-            passport_number: '',
-            PIN: '',
-            role: '1'
-        }
-    })
-</script>
 
 {% block js %}{% endblock js %}
 </body>

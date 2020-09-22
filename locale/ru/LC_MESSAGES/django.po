@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-17 15:31+0600\n"
+"POT-Creation-Date: 2020-09-22 14:13+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,41 +72,103 @@ msgstr ""
 msgid "role"
 msgstr ""
 
-#: .\census\models.py:37
+#: .\census\models.py:36
+msgid "Employee"
+msgstr ""
+
+#: .\census\models.py:37 .\templates\base.html:49 .\templates\employees.html:6
+msgid "Employees"
+msgstr ""
+
+#: .\census\models.py:45
 msgid "region"
 msgstr ""
 
-#: .\census\models.py:38
+#: .\census\models.py:46 .\census\models.py:61
 msgid "name"
 msgstr ""
 
-#: .\census\models.py:39
+#: .\census\models.py:47
 msgid "Мам админстрация башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:40
+#: .\census\models.py:48
 msgid "Статистика башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:41
+#: .\census\models.py:49
 msgid "center of the district"
 msgstr ""
 
-#: .\census\models.py:42
+#: .\census\models.py:50
 msgid "stat address"
 msgstr ""
 
-#: .\core\settings.py:87
+#: .\census\models.py:52
+msgid "id of the district"
+msgstr ""
+
+#: .\census\models.py:55
+msgid "District"
+msgstr ""
+
+#: .\census\models.py:56
+msgid "Districts"
+msgstr ""
+
+#: .\census\models.py:62
+msgid "code"
+msgstr ""
+
+#: .\census\models.py:63
+msgid "district"
+msgstr ""
+
+#: .\census\models.py:66
+msgid "Territory"
+msgstr ""
+
+#: .\census\models.py:67
+msgid "Territories"
+msgstr ""
+
+#: .\core\settings.py:96 .\templates\base.html:55
 msgid "Kyrgyz"
 msgstr ""
 
-#: .\core\settings.py:88
+#: .\core\settings.py:97 .\templates\base.html:58
 msgid "Russian"
 msgstr ""
 
-#: .\templates\base.html:15
-msgid "Hello World"
-msgstr "Привет мир"
+#: .\templates\base.html:36 .\templates\index.html:7
+#, fuzzy
+#| msgid "Census Taker"
+msgid "Census"
+msgstr "Переписчик"
+
+#: .\templates\base.html:46
+msgid "Home"
+msgstr ""
+
+#: .\templates\employees.html:14
+msgid "Name"
+msgstr ""
+
+#: .\templates\employees.html:15
+msgid "Surname"
+msgstr ""
+
+#: .\templates\employees.html:16
+msgid "Role"
+msgstr ""
+
+#: .\templates\index.html:31
+msgid "Upload photo"
+msgstr "Загрузить фото"
+
+#: .\templates\index.html:35
+msgid "Save"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:7
 msgid "Messages"
@@ -1292,3 +1354,6 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:409
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "Hello World"
+#~ msgstr "Привет мир"
