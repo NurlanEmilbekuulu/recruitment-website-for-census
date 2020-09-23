@@ -26,6 +26,10 @@ INSTALLED_APPS = [
     'census',
 ]
 
+REST_FRAMEWORK = {
+    'DATE_INPUT_FORMATS': ["%d.%m.%Y", ],
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>{% trans "Employees" %}</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container pt-3" style="margin-top: 56px;">
+        <form id="app" @submit="submit">
+            {% for field in form.visible_fields %}
+                {% if field.name != "photo" %}
+                    <div class="form-group">
+                        <label for="id_{{ field.name }}">{{ field.label }}</label>
+                        {% render_field field class="form-control" v-model=field.name autocomplete="off" %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <label class="btn btn-primary btn-block mt-3">
+                <i class="fa fa-image"></i>
+                <span>{% trans "Upload photo" %}</span>
+                <input type="file" name="photo" accept="image/*" id="id_photo"
+                       style="display: none;" v-model="photo" ref="photo">
+            </label>
+
+            <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
+                    :disabled="photo == ''" @click="submit">{% trans "Save" %}</button>
+            {#            <button type="submit" class="btn btn-primary btn-block mt-3 mb-5" v-else @click="save=!save">#}
+            {#                <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>#}
+            {#                <span class="sr-only">Loading...</span>#}
+            {#            </button>#}
+        </form>
+    </div>
+
+{% endblock content %}

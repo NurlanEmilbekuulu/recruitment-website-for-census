@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans "Employees" %}</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 56px;">
+        <div>
+            {{ object.first_name }}
+        </div>
+    </div>
+
+{% endblock content %}

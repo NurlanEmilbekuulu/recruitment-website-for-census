@@ -21,7 +21,9 @@
                 {% if field.name != "photo" %}
                     <div class="form-group">
                         <label for="id_{{ field.name }}">{{ field.label }}</label>
-                        {% render_field field class="form-control" v-model=field.name autocomplete="off" %}
+                        {% with vmodel="employee."|add:field.name %}
+                            {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
+                        {% endwith %}
                     </div>
                 {% endif %}
             {% endfor %}
@@ -30,11 +32,11 @@
                 <i class="fa fa-image"></i>
                 <span>{% trans "Upload photo" %}</span>
                 <input type="file" name="photo" accept="image/*" id="id_photo"
-                       style="display: none;" v-model="photo">
+                       style="display: none;" ref="photo">
             </label>
 
-            <button class="btn btn-primary btn-block mt-3 mb-5"
-                    :disabled="validated == 1">{% trans "Save" %}</button>
+            <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
+                    @click="submit">{% trans "Save" %}</button>
             {#            <button type="submit" class="btn btn-primary btn-block mt-3 mb-5" v-else @click="save=!save">#}
             {#                <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>#}
             {#                <span class="sr-only">Loading...</span>#}
@@ -47,27 +49,41 @@
 {% block js %}
 
     <script>
+        axios.defaults.xsrfCookieName = 'csrftoken'
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+
         let app = new Vue({
             el: '#app',
             delimiters: ['[[', ']]'],
             data: {
-                last_name: '',
-                first_name: '',
-                patronymic: '',
-                birth_day: '',
-                address: '',
-                serial: 'ID',
-                passport_number: '',
-                PIN: '',
-                role: '1',
-                photo: '',
+                employee: {
+                    serial: 'ID',
+                    role: 1
+                },
                 save: false,
                 validated: 0
             },
 
             methods: {
                 submit: function (event) {
-                    console.log(this.first_name);
+                    console.log(this.employee);
+                    let fd = new FormData();
+                    for (let key in this.employee) {
+                        fd.append(key, this.employee[key]);
+                    }
+                    fd.append('photo', this.$refs.photo.files.item(0));
+                    axios.post("http://localhost:8000/ru/api/employees/", fd, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(function (response) {
+                        // handle success
+                        console.log(response);
+                        event.preventDefault();
+                    }).catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    });
                     event.preventDefault();
                 }
             }
