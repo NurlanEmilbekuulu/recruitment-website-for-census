@@ -9,39 +9,52 @@
 
 {% block style %}
     <style>
-        label.
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100vh;
+            z-index: 9999;
+            background: url({% static 'img/spinner.gif' %}) 50% 50% no-repeat rgb(249, 249, 249);
+        }
     </style>
 {% endblock style %}
 
 {% block content %}
 
     <div class="container pt-3" style="margin-top: 56px;">
-        <form id="app" @submit="submit" v-cloak>
-            {% for field in form.visible_fields %}
-                {% if field.name != "photo" %}
-                    <div class="form-group">
-                        <label for="id_{{ field.name }}">{{ field.label }}</label>
-                        {% with vmodel="employee."|add:field.name %}
-                            {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
-                        {% endwith %}
-                    </div>
-                {% endif %}
-            {% endfor %}
 
-            <label class="btn btn-primary btn-block mt-3">
-                <i class="fa fa-image"></i>
-                <span>{% trans "Upload photo" %}</span>
-                <input type="file" name="photo" accept="image/*" id="id_photo"
-                       style="display: none;" ref="photo">
-            </label>
+        <div id="app" v-cloak>
+            <div class="loader-container">
+                <div class="loader d-flex" v-if="save">
+                    <span class="mx-auto my-auto" style="padding-top: 100px;">Сохранение</span>
+                </div>
+            </div>
 
-            <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
-                    @click="submit">{% trans "Save" %}</button>
-            {#            <button type="submit" class="btn btn-primary btn-block mt-3 mb-5" v-else @click="save=!save">#}
-            {#                <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>#}
-            {#                <span class="sr-only">Loading...</span>#}
-            {#            </button>#}
-        </form>
+            <form @submit="submit">
+                {% for field in form.visible_fields %}
+                    {% if field.name != "photo" %}
+                        <div class="form-group">
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            {% with vmodel="employee."|add:field.name %}
+                                {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <label class="btn btn-primary btn-block mt-3">
+                    <i class="fa fa-image"></i>
+                    <span>{% trans "Upload photo" %}</span>
+                    <input type="file" name="photo" accept="image/*" id="id_photo"
+                           style="display: none;" ref="photo">
+                </label>
+
+                <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
+                        @click="submit">{% trans "Save" %}</button>
+            </form>
+        </div>
     </div>
 
 {% endblock content %}
@@ -61,7 +74,6 @@
                     role: 1
                 },
                 save: false,
-                validated: 0
             },
 
             methods: {
