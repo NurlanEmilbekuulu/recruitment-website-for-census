@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import dj_database_url
 import environ
 from django.utils.translation import gettext_lazy as _
 
@@ -69,10 +70,14 @@ DATABASES = {
         'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('HOST'),
-        'PORT': env('PORT')
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
+
+if not DEBUG:
+    db_from_env = dj_database_url.config(conn_max_age=600)
+    DATABASES['default'].update(db_from_env)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
