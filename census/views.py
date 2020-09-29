@@ -25,3 +25,8 @@ class EmployeeUpdateView(UpdateView):
     model = Employee
     template_name = 'update.html'
     form_class = EmployeeUpdateForm
+
+
+class AgreementDetailView(DetailView):
+    model = Employee
+    template_name = 'agreement.html'

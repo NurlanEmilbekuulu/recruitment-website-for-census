@@ -40,6 +40,10 @@ class Employee(models.Model):
     def get_role(self):
         return dict(Employee.ROLE_CHOICES).get(self.role)
 
+    @property
+    def full_name(self):
+        return f'{self.last_name} {self.first_name[0]}.'
+
 
 class District(models.Model):
     region = models.CharField(_('region'), max_length=2, choices=REGION_CHOICES)

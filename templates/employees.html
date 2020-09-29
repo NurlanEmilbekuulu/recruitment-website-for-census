@@ -13,8 +13,7 @@
             <tr>
                 <th scope="col">№</th>
                 <th scope="col">{% trans 'Action' %}</th>
-                <th scope="col">{% trans 'Name' %}</th>
-                <th scope="col">{% trans 'Surname' %}</th>
+                <th scope="col">{% trans 'Full name' %}</th>
                 <th scope="col">{% trans 'Role' %}</th>
                 <th scope="col">{% trans 'Agreement' %}</th>
             </tr>
@@ -24,10 +23,9 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'update' pk=object.pk %}">{% trans 'Change' %}</a></td>
-                    <td>{{ object.first_name }}</td>
-                    <td>{{ object.last_name }}</td>
+                    <td>{{ object.full_name }}</td>
                     <td>{{ object.get_role }}</td>
-                    <td>{{ object.id }}</td>
+                    <td><a href="{% url 'agreement' pk=object.pk %}">{{ object.id }}</a></td>
                 </tr>
             {% endfor %}
 
