@@ -5,7 +5,9 @@ from census.models import Employee, District, Territory
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    pass
+    exclude = ('agreement', 'qr_code',)
+    # def has_add_permission(self, request, obj=None):
+    #     return Employee.objects.all().count() == 0
 
 
 class TerritoryAdmin(admin.TabularInline):

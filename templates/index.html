@@ -32,6 +32,8 @@
                 </div>
             </div>
 
+            <div>{{url_parts.protocol}}{{url_parts.domain}}</div>
+
             <form @submit="submit">
                 {% for field in form.visible_fields %}
                     {% if field.name != "photo" %}
@@ -64,10 +66,21 @@
     <script>
         axios.defaults.xsrfCookieName = 'csrftoken'
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+        axios.defaults.baseURL = '{{ API_ENDPOINT }}';
+
+        Vue.component('button-counter', {
+            delimiters: ['[[', ']]'],
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button @click="count++">Счётчик кликов — [[ count ]]</button>'
+        })
 
         let app = new Vue({
             el: '#app',
-            delimiters: ['[[', ']]'],
+
             data: {
                 employee: {
                     serial: 'ID',
@@ -84,7 +97,7 @@
                         fd.append(key, this.employee[key]);
                     }
                     fd.append('photo', this.$refs.photo.files.item(0));
-                    axios.post("http://localhost:8000/ru/api/employees/", fd, {
+                    axios.post("employees/", fd, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }

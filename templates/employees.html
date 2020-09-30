@@ -12,10 +12,10 @@
             <thead>
             <tr>
                 <th scope="col">№</th>
-                <th scope="col">{% trans 'Action' %}</th>
-                <th scope="col">{% trans 'Full name' %}</th>
-                <th scope="col">{% trans 'Role' %}</th>
-                <th scope="col">{% trans 'Agreement' %}</th>
+                <th scope="col">{% trans 'Аракет' %}</th>
+                <th scope="col">{% trans 'Аты-жөнү' %}</th>
+                <th scope="col">{% trans 'Ролу' %}</th>
+                <th scope="col">{% trans 'Келишим' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -25,7 +25,9 @@
                     <td><a href="{% url 'update' pk=object.pk %}">{% trans 'Change' %}</a></td>
                     <td>{{ object.full_name }}</td>
                     <td>{{ object.get_role }}</td>
-                    <td><a href="{% url 'agreement' pk=object.pk %}">{{ object.id }}</a></td>
+                    <td>
+                        <a href="{% url 'agreement' pk=object.pk %}">{% trans 'Кененирээк' %}</a>
+                    </td>
                 </tr>
             {% endfor %}
 

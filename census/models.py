@@ -31,6 +31,8 @@ class Employee(models.Model):
     PIN = models.CharField(_('PIN'), max_length=14, unique=True)
     photo = models.ImageField(_('photo'), upload_to='employee/photos')
     role = models.PositiveSmallIntegerField(_('role'), choices=ROLE_CHOICES, default=1)
+    agreement = models.CharField(_('келишим'), max_length=6, blank=True, null=True)
+    qr_code = models.ImageField(_('QR код'), upload_to='users/qr-codes', blank=True, null=True)
 
     class Meta:
         verbose_name = _("Employee")
