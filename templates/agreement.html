@@ -3,20 +3,220 @@
 {% load i18n %}
 
 {% block title %}
-    <title>{% trans 'Agreement' %}</title>
-{% endblock title %}
+    Келишим
+{% endblock %}
 
-{% block style %}{% endblock style %}
-
+{% block style %}
+    <link rel="stylesheet" href="{% static 'fonts/NewTimesRoman/stylesheet.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/custom/agreement.css' %}">
+{% endblock style %}
 {% block content %}
-    <div class="container" style="padding-top: 100px;">
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab accusamus blanditiis consequuntur cumque
-            dolore doloremque expedita facilis fugiat harum impedit in libero molestias natus neque porro quam quasi
-            suscipit.
+
+    <section>
+        <div class="print-container">
+            <div class="text-center title"><strong>Трудовой договор
+                № object.agreement</strong></div>
+
+            <div class="d-flex mt-5">
+                <div class="mr-auto"><p>object.district.center</p></div>
+                <div class="ml-auto"><p>
+                    date_joined
+                    <span>г.</span></p>
+                </div>
+            </div>
+            <p class="mt-3 indent">object.district.agreement_ru, расположенный по адресу:
+                object.district.stat_address в лице
+                руководителя object.district.stat_admin|title,
+                действующего на основании Положения, именуемый в дальнейшем «Заказчик», с одной стороны,
+                и {{ object.last_name }} {{ object.first_name }} {% if object.patronymic %}
+                    {{ object.patronymic }} {% endif %} дата рождения {{ object.birth_day }}
+                проживающий(ая) по
+                адресу: {{ object.address }} паспорт серии {{ object.serial }} № {{ object.passport_number }}
+                выдан object.authority|upper Идентификационный номер {{ object.PIN }} именуемый в дальнейшем
+                «Исполнитель» с другой стороны, заключили настоящий договор о
+                следующем:</p>
+
+            <p class="text-center mt-3"><strong>1. Предмет договора</strong></p>
+
+            <p class="list-item" id="i-11">Исполнитель обязуется выполнить по заданию Заказчика работу, указанную в
+                пункте 1.2. настоящего договора, и сдать ее результат Заказчику, а Заказчик обязуется принять результат
+                работы и оплатить его.</p>
+
+            <p class="list-item" id="i-12">Исполнитель принимается на временную работу в качестве
+                {% if object.role == 1 %}
+                    Координатора {% elif object.role == 2 %} Инструктора-контролера {% elif object.role == 3 %}
+                    Переписчика {% endif %} переписи населения и жилищного фонда</p>
+
+            <p class="list-item" id="i-13">Срок выполнения работ с role_info.census_start_date_humanized
+                <span>года</span> до role_info.census_end_date_humanized <span>года</span>
+                role_info.days_off</p>
+
+            {% if object.role == 'cor' or object.role == 'ins' %}
+
+                <p class="list-item" id="i-131">Работа считается выполненной после подписания акта приема-сдачи работы
+                    Заказчиком.</p>
+
+                <p class="list-item" id="i-132">Для исполнения работ указанных в пункте 1.2., Исполнитель дает
+                    согласие на предоставление и использование своих персональных данных для формирования АИС-
+                    автоматизированная информационная система “Регистрация переписчика”.</p>
+            {% elif object.role == 'enum' %}
+
+                <p class="list-item" id="i-14">Исполнитель выполняет работу указанную в 1.2., настоящего договора на
+                    своем мобильном устройстве на платформе Android 5 и выше. При этом Заказчик не несет ответственность
+                    за порчу либо потерю мобильного устройства Исполнителя.</p>
+
+                <p class="list-item" id="i-15">Работа считается выполненной после подписания акта приема-сдачи работы
+                    Заказчиком.</p>
+
+                <p class="list-item" id="i-16">Для исполнения работ указанных в пункте 1.2., Исполнитель дает
+                    согласие на предоставление и использование своих персональных данных для формирования АИС-
+                    автоматизированная информационная система “Регистрация переписчика”.</p>
+
+            {% endif %}
+
+            <p class="text-center mt-3"><strong>2. Права и обязанности сторон</strong></p>
+
+            <p class="list-item" id="i-21">Исполнитель обязан:</p>
+
+            <p class="list-item" id="i-211">Выполнить работу с надлежащим качеством.</p>
+
+            <p class="list-item" id="i-212">Строго соблюдать конфиденциальность данных ставших ему известными при
+                осуществлении функции {% if object.role == 'cor' %}
+                    координатора{% elif object.role == 'ins' %} инструктора-контролера{% elif object.role == 'enum' %}
+                    переписчика{% endif %}.</p>
+
+            <p class="list-item" id="i-213">Выполнить работу в срок, указанный в пункте 1.3. настоящего
+                договора.</p>
+
+            <p class="list-item" id="i-214">Передать результат работы Заказчику.</p>
+
+            <p class="list-item" id="i-215">Безвозмездно исправить по требованию Заказчика все выявленные
+                недостатки, если в процессе выполнения работы Исполнитель допустил отступление от условий договора,
+                ухудшившее качество работы, в течение 3 дней.</p>
+
+            <p class="list-item" id="i-216">Исполнитель обязан выполнить работу лично.</p>
+
+            <p class="list-item" id="i-22">Заказчик обязан:</p>
+
+            <p class="list-item" id="i-221">После приемки результатов работ оплатить ее Исполнителю.</p>
+
+            <p class="text-center mt-3"><strong>3. Сроки и оплата по договору</strong></p>
+
+            <p class="list-item" id="i-31">Срок настоящего договора составляет {{ role_info.workday_num }}
+                ({{ role_info.workday2words }}) календарных дней, включая выходные и праздничные дни.</p>
+
+            {% if not object.role == 'enum' %}
+
+                <p class="list-item" id="i-32">{% if object.workday == 'half' %}
+                    Полставки{% elif object.workday == 'full' %}Полная ставка{% endif %}
+                    заработной платы Исполнителя (согласно объему выполняемых работ) за весь период работы составляет
+                    {% if object.workday == 'half' %}{{ role_info.half_salary }} ({{ role_info.half_salary2words }})
+                        {% else %}{{ role_info.salary }} ({{ role_info.salary2words }}){% endif %}
+                    сом</p>
+
+                <p class="list-item" id="i-33">Из начисленной суммы удерживается 10% в Социальный фонд, 10% подоходный
+                    налог.</p>
+            {% endif %}
         </div>
 
-        <div>
-            <h1>{{ object.first_name }}</h1>
+        <div class="print-container second">
+
+            {% if object.role == 'enum' %}
+                <p class="list-item" id="i-32">{% if object.workday == 'half' %}
+                    Полставки{% elif object.workday == 'full' %}Полная ставка{% endif %}
+                    заработной платы Исполнителя (согласно объему выполняемых работ) за весь период работы составляет
+                    {% if object.workday == 'half' %}{{ role_info.half_salary }} ({{ role_info.half_salary2words }})
+                        {% else %}{{ role_info.salary }} ({{ role_info.salary2words }}){% endif %}
+                    сом</p>
+
+                <p class="list-item" id="i-33">Из начисленной суммы удерживается 10% в Социальный фонд, 10% подоходный
+                    налог.</p>
+            {% endif %}
+
+            <p class="text-center mt-3"><strong>4. Ответственность сторон</strong></p>
+
+            <p class="list-item" id="i-41">В случае неисполнения или ненадлежащего исполнения Исполнителем принятых в
+                рамках настоящего договора обязательств, право требования по их исполнению будут принадлежать
+                Заказчику.</p>
+
+            <p class="list-item" id="i-42">Заказчик и Исполнитель обязуются надлежащим образом осуществлять свои
+                обязательства по настоящему договору. </p>
+
+            <p class="list-item" id="i-43">За неисполнение или ненадлежащее исполнение обязательств по настоящему
+                договору, виновная сторона возмещает другой стороне причиненные убытки и несет ответственность в
+                соответствии с действующим законодательством Кыргызской Республики.</p>
+
+            <p class="list-item" id="i-44">Исполнитель принимает на себя обязательства по соблюдению конфиденциальности,
+                неразглашению полученной информации, а также по недопущению иного противозаконного использования
+                информации.</p>
+
+            <p class="list-item" id="i-45">В случае неисполнения или ненадлежащего исполнения своих обязательств по
+                соблюдению конфиденциальности,
+                неразглашению полученной информации, а также по недопущению иного противозаконного использования
+                информации, Исполнитель несет ответственность в соответствии с уголовным законодательством Кыргызской
+                Республики.</p>
+
+            <p class="text-center mt-3"><strong>5. Порядок разрешения споров</strong></p>
+
+            <p class="list-item" id="i-51">Все споры или разногласия, возникающие между сторонами по настоящему договору
+                или в связи с ним, разрешаются в соответствии с действующим законодательством Кыргызской Республики.</p>
+
+            <p class="text-center mt-3"><strong>6. Порядок изменений и дополнения договора</strong></p>
+
+            <p class="list-item" id="i-61">Любые изменения и дополнения к настоящему договору имеют силу только в том
+                случае, если они оформлены в письменном виде и подписаны обеими сторонами.</p>
+
+            <p class="list-item" id="i-62">Досрочное расторжение договора может иметь место по соглашению сторон либо по
+                основаниям, предусмотренным действующим на территории Кыргызской Республики гражданским
+                законодательством, с возмещением понесенных убытков.</p>
+
+            <p class="text-center mt-3"><strong>7. Прочие условия</strong></p>
+
+            <p class="list-item" id="i-71">Настоящий договор составлен в двух экземплярах, имеющих одинаковую
+                юридическую силу, по одному экземпляру для каждой из сторон.</p>
+
+            <p class="text-center mt-3"><strong>8. Подписи сторон</strong></p>
+
+            <TABLE WIDTH=560 CELLPADDING=10 CELLSPACING=0>
+                <COL WIDTH=273>
+                <COL WIDTH=300>
+                <TR VALIGN=TOP>
+                    <TD WIDTH=273 STYLE="border: none; padding: 0in">
+                        <P><span FACE="Times New Roman, serif"><span SIZE=3><strong>Заказчик:</strong></span></span></P>
+                    </TD>
+                    <TD WIDTH=300 STYLE="border: none; padding: 0in">
+                        <P><span FACE="Times New Roman, serif"><span SIZE=3><strong>Исполнитель:</strong></span></span>
+                        </P>
+                    </TD>
+                </TR>
+                <TR VALIGN=TOP>
+                    <TD WIDTH=280 STYLE="border: none; padding: 0in">
+                        <P STYLE="margin-bottom: 0in"><BR>
+                        </P>
+                        <P><span FACE="Times New Roman, serif"><span SIZE=3>_______
+						________________________</span></span></P>
+                    </TD>
+                    <TD WIDTH=280 STYLE="border: none; padding: 0in">
+                        <P STYLE="margin-bottom: 0in"><BR>
+                        </P>
+                        <P><span FACE="Times New Roman, serif"><span SIZE=3>_______
+						________________________</span></span></P>
+                    </TD>
+                </TR>
+                <TR VALIGN=TOP>
+                    <TD WIDTH=273 STYLE="border: none; padding: 0in">
+                        <P><span FACE="Times New Roman, serif"><span SIZE=2 style="font-size: 15px;">(подпись)
+						   (имя, фамилия)</span></span></P>
+                    </TD>
+                    <TD WIDTH=300 STYLE="border: none; padding: 0in">
+                        <P><span FACE="Times New Roman, serif"><span SIZE=2 style="font-size: 15px;">(подпись)
+						            (имя, фамилия)</span></span></P>
+                    </TD>
+                </TR>
+            </TABLE>
+
+            <p>М.П.</p>
         </div>
-    </div>
-{% endblock content %}
+    </section>
+
+{% endblock %}
