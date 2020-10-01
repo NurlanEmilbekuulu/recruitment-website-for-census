@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'widget_tweaks',
+    'accounts',
     'census',
 ]
 
@@ -58,6 +59,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'census.context_processors.api_endpoint',
+                'census.context_processors.load_settings',
             ],
         },
     },

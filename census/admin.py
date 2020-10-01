@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from census.models import Employee, District, Territory
+from census.models import Employee, District, Territory, SiteSettings
 
 
 @admin.register(Employee)
@@ -20,3 +20,19 @@ class DistrictAdmin(admin.ModelAdmin):
     exclude = ('counter',)
     inlines = [TerritoryAdmin]
     list_filter = ('region',)
+
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    # def __init__(self, model, admin_site):
+    #     super().__init__(model, admin_site)
+    #     try:
+    #         # SiteSettings.load().save()
+    #     except ProgrammingError:
+    #         pass
+
+    def has_add_permission(self, request, obj=None):
+        return SiteSettings.objects.all().count() == 0
+
+    def has_delete_permission(self, request, obj=None):
+        return False

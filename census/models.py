@@ -1,16 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from census.consts import REGION_CHOICES
+from census.consts import REGION_CHOICES, SERIAL_CHOICES, ROLE_CHOICES
+from census.singleton_model import SingletonModel
 
 
 class Employee(models.Model):
-    SERIAL_CHOICES = (('ID', 'ID'), ('AN', 'AN'), ('AC', 'AC'))
-    ROLE_CHOICES = (
-        (1, _('Coordinator')),
-        (2, _('Instructor')),
-        (3, _('Census Taker')),
-    )
     last_name = models.CharField(_('last name'), max_length=45)
     first_name = models.CharField(_('first name'), max_length=45)
     patronymic = models.CharField(_('patronymic'), max_length=45, null=True, blank=True)
@@ -40,7 +35,7 @@ class Employee(models.Model):
 
     @property
     def get_role(self):
-        return dict(Employee.ROLE_CHOICES).get(self.role)
+        return dict(ROLE_CHOICES).get(self.role)
 
     @property
     def full_name(self):
@@ -75,3 +70,14 @@ class Territory(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+
+class SiteSettings(SingletonModel):
+    role = models.PositiveSmallIntegerField(_('role'), choices=ROLE_CHOICES, default=1)
+
+    class Meta:
+        verbose_name = 'Конфигурация'
+        verbose_name_plural = 'Конфигурациялар'
+
+    def __str__(self):
+        return f'{_("Конфигурациялар")}'

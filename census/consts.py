@@ -1,3 +1,5 @@
+from django.utils.translation import gettext_lazy as _
+
 REGION_CHOICES = (
     ("02", "Ысык-Көл обл."),
     ("03", "Жалал-Абад обл."),
@@ -8,4 +10,16 @@ REGION_CHOICES = (
     ("08", "Чүй обл."),
     ("11", "Бишкек ш."),
     ("21", "Ош ш."),
+)
+
+SERIAL_CHOICES = (
+    ('ID', 'ID'),
+    ('AN', 'AN'),
+    ('AC', 'AC')
+)
+
+ROLE_CHOICES = (
+    (1, _('Координатор')),
+    (2, _('Инструктор')),
+    (3, _('Каттоочу')),
 )
