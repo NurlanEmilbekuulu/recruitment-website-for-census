@@ -1,5 +1,6 @@
-from django.views.generic import CreateView
+from django.views import View
 
 
-class UAGView(CreateView):
-    pass
+class UAGView(View):
+    def get(self, request):
+        pass
