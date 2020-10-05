@@ -11,6 +11,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('census.urls')),
+    path('accounts/', include('accounts.urls'))
 )
 
 if settings.DEBUG:

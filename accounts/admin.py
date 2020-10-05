@@ -33,4 +33,5 @@ class ExportCsvMixin:
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin, ExportCsvMixin):
+    change_list_template = "admin/profile_change_list.html"
     actions = ["export_as_csv"]
