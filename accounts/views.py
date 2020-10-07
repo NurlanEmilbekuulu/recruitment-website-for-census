@@ -1,22 +1,20 @@
-from django.contrib.auth.models import User
+from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.base import View
 
-from accounts.utils import get_random_alphanumeric_string, get_secure_random_string
+from accounts.utils import create_users
+from census.models import District
 
 
 class UAGView(View):
 
     def get(self, request):
-        username = get_random_alphanumeric_string(8)
-        password = get_secure_random_string(8)
-        user = User.objects.create_user(
-            username=username,
-            password=password
-        )
 
-        user.profile.raw_password = password
+        districts = District.objects.all()
 
-        user.save()
+        for district in districts:
+            create_users(district)
+
+        messages.success(request, 'Profile updated successfully')
         return redirect(reverse_lazy('admin:accounts_profile_changelist'))
