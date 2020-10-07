@@ -4,6 +4,8 @@ import string
 
 from django.contrib.auth.models import User
 
+from accounts.models import Profile
+
 
 def get_random_alphanumeric_string(length):
     letters_and_digits = string.ascii_letters + string.digits
@@ -16,32 +18,40 @@ def get_secure_random_string(length):
     return secure_str
 
 
+def is_users_exist_by_district(district):
+    users = Profile.objects.filter(district=district)
+    return len(users) > 0, len(users)
+
+
+def create_user(district, role=1):
+    username = get_random_alphanumeric_string(8)
+    password = get_secure_random_string(8)
+
+    user = User.objects.create_user(
+        username=username,
+        password=password
+    )
+
+    user.profile.raw_password = password
+    user.profile.district = district
+    user.profile.role = role
+
+    user.save()
+
+
 def create_users(district):
-    admin_username = get_random_alphanumeric_string(8)
-    admin_password = get_secure_random_string(8)
+    control, length = is_users_exist_by_district(district)
+    if control and length == 1:
+        user = User.objects.get(profile__district=district)
+        if not user.is_superuser:
+            if user.profile.role == 1:
+                create_user(district, role=2)
+            else:
+                create_user(district, role=1)
+            return True
+    if not control:
+        create_user(district, role=1)
+        create_user(district, role=2)
+        return True
 
-    mod_username = get_random_alphanumeric_string(8)
-    mod_password = get_secure_random_string(8)
-
-    admin = User.objects.create_user(
-        username=admin_username,
-        password=admin_password
-    )
-
-    moderator = User.objects.create_user(
-        username=mod_username,
-        password=mod_password
-    )
-
-    admin.profile.raw_password = admin_password
-    admin.profile.district = district
-    admin.profile.role = 1
-
-    moderator.profile.raw_password = mod_password
-    moderator.profile.district = district
-    moderator.profile.role = 2
-
-    admin.save()
-    moderator.save()
-
-    return True
+    return False

@@ -12,9 +12,10 @@ class ExportCsvMixin:
         file = open("credentials.txt", "w")
 
         for obj in queryset:
-            row = f'username : {obj.user.get_username()}, password : {obj.raw_password}'
-            file.write(row)
-            file.write("\n")
+            if not obj.user.is_superuser:
+                row = f'username : {obj.user.get_username()}, password : {obj.raw_password}'
+                file.write(row)
+                file.write("\n")
 
         file.close()
 

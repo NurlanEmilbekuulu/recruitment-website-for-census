@@ -9,7 +9,8 @@ from census.models import District
 
 class UAGView(View):
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
 
         districts = District.objects.all()
 
