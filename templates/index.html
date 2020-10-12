@@ -64,10 +64,6 @@
 {% block js %}
 
     <script>
-        axios.defaults.xsrfCookieName = 'csrftoken'
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-        axios.defaults.baseURL = '{{ API_ENDPOINT }}';
-
         Vue.component('button-counter', {
             delimiters: ['[[', ']]'],
             data() {

@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'widget_tweaks',
     'accounts',
     'census',
@@ -31,9 +32,11 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DATE_INPUT_FORMATS': ["%d.%m.%Y", ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,3 +126,26 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 API_ENDPOINT = env('API_ENDPOINT')
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = 'login'
+
+
+def FILTERS_VERBOSE_LOOKUPS():
+    from django_filters.conf import DEFAULTS
+
+    verbose_lookups = DEFAULTS['VERBOSE_LOOKUPS'].copy()
+    verbose_lookups.update({
+        'icontains': '',
+    })
+    return verbose_lookups
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://census-kg.herokuapp.com",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000"
+]
+
+CORS_ALLOW_CREDENTIALS = True

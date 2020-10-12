@@ -7,3 +7,4 @@ from census.models import Employee
 class EmployeeViewSet(ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    filterset_fields = ['first_name', 'last_name']

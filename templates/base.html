@@ -57,6 +57,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">{% trans "Russian" %}</a>
                     </li>
+
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">{% trans "Чыгуу" %}</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -71,6 +77,11 @@
 <script src="{% static 'js/axios/axios.min.js' %}"></script>
 <script src="{% static 'js/vue.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+    axios.defaults.baseURL = '{{ API_ENDPOINT }}';
+</script>
 
 {% block js %}{% endblock js %}
 </body>

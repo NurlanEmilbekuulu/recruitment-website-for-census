@@ -1,37 +1,117 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load widget_tweaks %}
 
 {% block title %}
     <title>{% trans "Employees" %}</title>
 {% endblock title %}
 
-{% block content %}
-    <div class="container" style="margin-top: 100px;">
-        <table class="table table-hover table-bordered" id="myTable" data-card-width="1000">
-            <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">{% trans 'Аракет' %}</th>
-                <th scope="col">{% trans 'Аты-жөнү' %}</th>
-                <th scope="col">{% trans 'Ролу' %}</th>
-                <th scope="col">{% trans 'Келишим' %}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for object in object_list %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'update' pk=object.pk %}">{% trans 'Change' %}</a></td>
-                    <td>{{ object.full_name }}</td>
-                    <td>{{ object.get_role }}</td>
-                    <td>
-                        <a href="{% url 'agreement' pk=object.pk %}">{% trans 'Кененирээк' %}</a>
-                    </td>
-                </tr>
-            {% endfor %}
+{% block style %}
+    <style>
 
-            </tbody>
-        </table>
+    </style>
+{% endblock style %}
+
+{% block content %}
+    {% get_current_language as LANGUAGE_CODE %}
+    <div class="container" style="margin-top: 100px;" id="app" v-cloak>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="filter-container">
+                    <form method="get">
+                        <div class="form-row">
+                            {% for field in filterset.form.visible_fields %}
+                                <div class="form-group col-md-12">
+                                    <label for="id_{{ field.name|lower }}">{{ field.label }}</label>
+                                    {% render_field field class="form-control" autocomplete="off" %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="search-btn">{% trans 'Search' %}</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <table class="table table-hover table-bordered" id="myTable" data-card-width="1000">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">{% trans 'Аракет' %}</th>
+                        <th scope="col">{% trans 'Аты-жөнү' %}</th>
+                        <th scope="col">{% trans 'Ролу' %}</th>
+                        <th scope="col">{% trans 'Келишим' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for object in object_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'update' pk=object.pk %}">{% trans 'Change' %}</a></td>
+                            <td>{{ object.full_name }}</td>
+                            <td>{{ object.get_role }}</td>
+                            <td>
+                                <a href="{% url 'agreement' pk=object.pk %}">{% trans 'Кененирээк' %}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+                <table v-if="employees.length > 0" class="table table-hover table-bordered" data-card-width="1000">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">{% trans 'Аракет' %}</th>
+                        <th scope="col">{% trans 'Аты-жөнү' %}</th>
+                        <th scope="col">{% trans 'Ролу' %}</th>
+                        <th scope="col">{% trans 'Келишим' %}</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr v-for="(employee, index) in employees">
+                        <td>[[index + 1]]</td>
+                        <td>
+                            <a :href="'/{{ LANGUAGE_CODE }}' + employee.update_url_suffix">{% trans 'Change' %}</a>
+                        </td>
+                        <td>[[ employee.first_name ]]</td>
+                        <td>[[ employee.role ]]</td>
+                        <td>
+                            <a :href="'/{{ LANGUAGE_CODE }}' + employee.agreement_url_suffix">{% trans 'Кененирээк' %}</a>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock content %}
+
+{% block js %}
+    <script>
+        let app = new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: function () {
+                return {
+                    employees: []
+                }
+            },
+
+            methods: {
+                getEmployees() {
+                    axios.get("employees/").then(response => {
+                        this.employees = response.data;
+                    });
+                }
+            },
+
+            mounted: function () {
+                this.getEmployees();
+            },
+        })
+    </script>
+{% endblock js %}
