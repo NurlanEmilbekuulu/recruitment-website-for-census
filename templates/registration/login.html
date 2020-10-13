@@ -1,43 +1,65 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block style %}
+    <style>
+        body {
+            background-color: #ebebeb;
+        }
+
+        .login-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form-container {
+            width: 500px;
+            background: #fff;
+            border-radius: 4px;
+            position: relative;
+            padding: 50px 70px;
+        }
+    </style>
+{% endblock style %}
 
 {% block content %}
 
-    <div class="container" style="margin-top: 150px;">
-        {% if form.errors %}
-            <p>Your username and password didn't match. Please try again.</p>
-        {% endif %}
-
-        {% if next %}
-            {% if user.is_authenticated %}
-                <p>Your account doesn't have access to this page. To proceed,
-                    please login with an account that has access.</p>
-            {% else %}
-                <p>Please login to see this page.</p>
+    <div class="container login-container">
+        <div class="login-form-container">
+            {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
             {% endif %}
-        {% endif %}
 
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <table>
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p>Your account doesn't have access to this page. To proceed,
+                        please login with an account that has access.</p>
+                {% else %}
+                    <p>Please login to see this page.</p>
+                {% endif %}
+            {% endif %}
 
-                <tr>
-                    <td>{{ form.username.label_tag }}</td>
-                    <td>{{ form.username }}</td>
-                </tr>
+            <form method="post" action="{% url 'login' %}" class="login-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_{{ form.username.name }}">{{ form.username.label }}</label>
+                    {% render_field form.username class="form-control" %}
+                </div>
+                <div class="form-group">
+                    <label for="id_{{ form.password.name }}">{{ form.password.label }}</label>
+                    {% render_field form.password class="form-control" %}
+                </div>
 
-                <tr>
-                    <td>{{ form.password.label_tag }}</td>
-                    <td>{{ form.password }}</td>
-                </tr>
-            </table>
-
-            <input type="submit" value="login"/>
-            <input type="hidden" name="next" value="{{ next }}"/>
-        </form>
-
-        {# Assumes you setup the password_reset view in your URLconf #}
-        <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+                <button type="submit" class="btn btn-block shadow-none mt-4">{% trans 'Сайтка кирүү' %}</button>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </form>
+        </div>
     </div>
 
 {% endblock %}

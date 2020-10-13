@@ -9,7 +9,15 @@
 
 {% block style %}
     <style>
+        .filter-container{
+            padding: 10px;
+            background-color: #DCDCDC;
+            border-radius: 4px;
+        }
 
+        .search-btn{
+            background-color: #F0F8FF;
+        }
     </style>
 {% endblock style %}
 
@@ -19,7 +27,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="filter-container">
-                    <form method="get">
+                    <form class="filter-form">
                         <div class="form-row">
                             {% for field in filterset.form.visible_fields %}
                                 <div class="form-group col-md-12">
@@ -28,38 +36,12 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <button type="submit" class="search-btn">{% trans 'Search' %}</button>
+                        <button type="button" class="btn btn-block mt-2 shadow-none search-btn">{% trans 'Search' %}</button>
                     </form>
                 </div>
             </div>
             <div class="col-md-9">
-                <table class="table table-hover table-bordered" id="myTable" data-card-width="1000">
-                    <thead>
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">{% trans 'Аракет' %}</th>
-                        <th scope="col">{% trans 'Аты-жөнү' %}</th>
-                        <th scope="col">{% trans 'Ролу' %}</th>
-                        <th scope="col">{% trans 'Келишим' %}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for object in object_list %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td><a href="{% url 'update' pk=object.pk %}">{% trans 'Change' %}</a></td>
-                            <td>{{ object.full_name }}</td>
-                            <td>{{ object.get_role }}</td>
-                            <td>
-                                <a href="{% url 'agreement' pk=object.pk %}">{% trans 'Кененирээк' %}</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-
-                    </tbody>
-                </table>
-
-                <table v-if="employees.length > 0" class="table table-hover table-bordered" data-card-width="1000">
+                <table v-if="employees.length > 0" class="table table-hover table-bordered" id="myTable" data-card-width="1000">
                     <thead>
                     <tr>
                         <th scope="col">№</th>
@@ -76,8 +58,8 @@
                         <td>
                             <a :href="'/{{ LANGUAGE_CODE }}' + employee.update_url_suffix">{% trans 'Change' %}</a>
                         </td>
-                        <td>[[ employee.first_name ]]</td>
-                        <td>[[ employee.role ]]</td>
+                        <td>[[ employee.full_name ]]</td>
+                        <td>[[ employee.role_str ]]</td>
                         <td>
                             <a :href="'/{{ LANGUAGE_CODE }}' + employee.agreement_url_suffix">{% trans 'Кененирээк' %}</a>
                         </td>

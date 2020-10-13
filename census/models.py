@@ -34,7 +34,7 @@ class Employee(models.Model):
         verbose_name_plural = _('Employees')
 
     @property
-    def get_role(self):
+    def role_str(self):
         return dict(ROLE_CHOICES).get(self.role)
 
     @property
