@@ -9,4 +9,6 @@ class EmployeeFilter(django_filters.FilterSet):
         fields = {
             'first_name': ['icontains', ],
             'last_name': ['icontains', ],
+            'PIN': ['exact', ],
+            'role': ['exact', ],
         }

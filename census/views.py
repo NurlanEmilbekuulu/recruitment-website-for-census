@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, TemplateView
 
 from census.filters import EmployeeFilter
 from census.forms import EmployeeCreateForm, EmployeeUpdateForm
@@ -12,24 +12,19 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
     form_class = EmployeeCreateForm
 
 
-class FilteredListView(ListView):
+class FiltersetFormView(TemplateView):
     filterset: object
     filterset_class = None
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct()
-
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filterset'] = self.filterset
+        self.filterset = self.filterset_class()
+        context['form'] = self.filterset.form
         return context
 
 
-class EmployeeListView(LoginRequiredMixin, FilteredListView):
+class EmployeeListView(LoginRequiredMixin, FiltersetFormView):
     filterset_class = EmployeeFilter
-    model = Employee
     template_name = 'employees.html'
 
 

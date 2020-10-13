@@ -1,3 +1,8 @@
+from io import BytesIO
+
+import qrcode
+from PIL import Image, ImageDraw
+from django.core.files import File
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -27,7 +32,7 @@ class Employee(models.Model):
     photo = models.ImageField(_('photo'), upload_to='employee/photos')
     role = models.PositiveSmallIntegerField(_('role'), choices=ROLE_CHOICES, default=1)
     agreement = models.CharField(_('келишим'), max_length=6, blank=True, null=True)
-    qr_code = models.ImageField(_('QR код'), upload_to='users/qr-codes', blank=True, null=True)
+    qr_code = models.ImageField(_('QR код'), upload_to='employee/qr-codes', blank=True, null=True)
 
     class Meta:
         verbose_name = _("Employee")
@@ -40,6 +45,23 @@ class Employee(models.Model):
     @property
     def full_name(self):
         return f'{self.last_name} {self.first_name[0]}.'
+
+    def generate_qr_code(self):
+        QRCode = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=6,
+            border=2
+        )
+        qr_code_img = QRCode.make(self.full_name)
+        canvas = Image.new('RGB', (290, 290), 'white')
+        draw = ImageDraw.Draw(canvas)
+        canvas.paste(qr_code_img)
+        filename = f'qr_code-{self.id}.png'
+        buffer = BytesIO()
+        canvas.save(buffer, 'PNG')
+        self.qr_code.save(filename, File(buffer), save=False)
+        canvas.close()
 
 
 class District(models.Model):

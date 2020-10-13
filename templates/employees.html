@@ -9,13 +9,13 @@
 
 {% block style %}
     <style>
-        .filter-container{
+        .filter-container {
             padding: 10px;
             background-color: #DCDCDC;
             border-radius: 4px;
         }
 
-        .search-btn{
+        .search-btn {
             background-color: #F0F8FF;
         }
     </style>
@@ -29,19 +29,24 @@
                 <div class="filter-container">
                     <form class="filter-form">
                         <div class="form-row">
-                            {% for field in filterset.form.visible_fields %}
+                            {% for field in form.visible_fields %}
                                 <div class="form-group col-md-12">
                                     <label for="id_{{ field.name|lower }}">{{ field.label }}</label>
-                                    {% render_field field class="form-control" autocomplete="off" %}
+                                    {% with vmodel="filterset."|add:field.name %}
+                                        {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
+                                    {% endwith %}
                                 </div>
                             {% endfor %}
                         </div>
-                        <button type="button" class="btn btn-block mt-2 shadow-none search-btn">{% trans 'Search' %}</button>
+                        <button type="button"
+                                class="btn btn-block mt-2 shadow-none search-btn"
+                                @click="filter">{% trans 'Search' %}</button>
                     </form>
                 </div>
             </div>
             <div class="col-md-9">
-                <table v-if="employees.length > 0" class="table table-hover table-bordered" id="myTable" data-card-width="1000">
+                <table v-if="employees.length > 0" class="table table-hover table-bordered" id="myTable"
+                       data-card-width="1000">
                     <thead>
                     <tr>
                         <th scope="col">№</th>
@@ -79,7 +84,13 @@
             delimiters: ['[[', ']]'],
             data: function () {
                 return {
-                    employees: []
+                    employees: [],
+                    filterset: {
+                        first_name__icontains: '',
+                        last_name__icontains: '',
+                        PIN: '',
+                        role: 1
+                    }
                 }
             },
 
@@ -88,6 +99,10 @@
                     axios.get("employees/").then(response => {
                         this.employees = response.data;
                     });
+                },
+
+                filter() {
+                    console.log(this.filterset);
                 }
             },
 
