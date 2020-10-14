@@ -1,8 +1,7 @@
 from io import BytesIO
 
 import qrcode
-from PIL import Image, ImageDraw
-from django.core.files import File
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -53,15 +52,18 @@ class Employee(models.Model):
             box_size=6,
             border=2
         )
-        qr_code_img = QRCode.make(self.full_name)
-        canvas = Image.new('RGB', (290, 290), 'white')
-        draw = ImageDraw.Draw(canvas)
-        canvas.paste(qr_code_img)
-        filename = f'qr_code-{self.id}.png'
+        QRCode.add_data(self.full_name)
+        QRCode.make(fit=True)
+
+        img = QRCode.make_image()
         buffer = BytesIO()
-        canvas.save(buffer, 'PNG')
-        self.qr_code.save(filename, File(buffer), save=False)
-        canvas.close()
+        img.save(buffer)
+        filename = f'qr_code-{self.id}.png'
+        file = InMemoryUploadedFile(
+            buffer, None, filename, 'image/png', buffer.tell(), None
+        )
+
+        self.qr_code.save(filename, file, save=False)
 
 
 class District(models.Model):

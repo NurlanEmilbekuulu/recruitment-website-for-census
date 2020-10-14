@@ -8,32 +8,105 @@
 {% endblock title %}
 
 {% block content %}
-
     <div class="container pt-3" style="margin-top: 56px;">
-        <form id="app" @submit="submit">
-            {% for field in form.visible_fields %}
-                {% if field.name != "photo" %}
-                    <div class="form-group">
-                        <label for="id_{{ field.name }}">{{ field.label }}</label>
-                        {% render_field field class="form-control" v-model=field.name autocomplete="off" %}
-                    </div>
-                {% endif %}
-            {% endfor %}
+        <div id="app" v-cloak>
+            <employee-badge-print :employee="employee"></employee-badge-print>
+            <form @submit="submit">
+                {% for field in form.visible_fields %}
+                    {% if field.name != "photo" %}
+                        <div class="form-group">
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            {% with vmodel="employee."|add:field.name %}
+                                {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
-            <label class="btn btn-primary btn-block mt-3">
-                <i class="fa fa-image"></i>
-                <span>{% trans "Upload photo" %}</span>
-                <input type="file" name="photo" accept="image/*" id="id_photo"
-                       style="display: none;" v-model="photo" ref="photo">
-            </label>
+                <label class="btn btn-primary btn-block mt-3">
+                    <i class="fa fa-image"></i>
+                    <span>{% trans "Upload photo" %}</span>
+                    <input type="file" name="photo" accept="image/*" id="id_photo"
+                           style="display: none;" ref="photo">
+                </label>
 
-            <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
-                    :disabled="photo == ''" @click="submit">{% trans "Save" %}</button>
-            {#            <button type="submit" class="btn btn-primary btn-block mt-3 mb-5" v-else @click="save=!save">#}
-            {#                <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>#}
-            {#                <span class="sr-only">Loading...</span>#}
-            {#            </button>#}
-        </form>
+                <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
+                        @click="submit">{% trans "Save" %}</button>
+            </form>
+        </div>
     </div>
 
 {% endblock content %}
+
+{% block js %}
+
+    <script type="text/x-template" id="badge-template">
+        <div>
+            <div class="detail__header">
+                <h1 class="detail-header__certificate">Күбөлүк &#8470;[[ employee.serial ]]</h1>
+                <span>Hello World</span>
+            </div>
+        </div>
+    </script>
+
+    <script>
+        Vue.component('employee-badge-print', {
+            delimiters: ['[[', ']]'],
+            template: '#badge-template',
+            props: {
+                employee: {
+                    type: Object,
+                    required: true
+                }
+            },
+            data() {
+                return {
+                    count: 0
+                }
+            },
+        })
+
+        let app = new Vue({
+            el: '#app',
+
+            data: {
+                employee: {
+                    serial: 'ID',
+                    role: 1
+                },
+                employeeBeforeEdit: {},
+                save: false,
+            },
+
+            methods: {
+                submit: function (event) {
+                    console.log(this.employee);
+                    let fd = new FormData();
+                    for (let key in this.employee) {
+                        fd.append(key, this.employee[key]);
+                    }
+                    fd.append('photo', this.$refs.photo.files.item(0));
+                    axios.post("employees/", fd, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(function (response) {
+                        // handle success
+                        console.log(response);
+                        Object.assign(this.employee, this.employeeBeforeEdit);
+                        event.preventDefault();
+                    }).catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    });
+                    event.preventDefault();
+                }
+            },
+
+            created() {
+                this.employeeBeforeEdit = this.employee;
+            }
+        })
+    </script>
+
+{% endblock js %}

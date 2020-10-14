@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div>{{url_parts.protocol}}{{url_parts.domain}}</div>
+            <div>{{ url_parts.protocol }}{{ url_parts.domain }}</div>
 
             <form @submit="submit">
                 {% for field in form.visible_fields %}
@@ -82,15 +82,21 @@
                     serial: 'ID',
                     role: 1
                 },
+                employeeCopy: {},
                 save: false,
             },
 
             methods: {
+                reset: function(event) {
+                    this.employee = {...this.employeeCopy};
+                },
+
+
                 submit: function (event) {
-                    console.log(this.employee);
+                    let self = this;
                     let fd = new FormData();
-                    for (let key in this.employee) {
-                        fd.append(key, this.employee[key]);
+                    for (let key in self.employee) {
+                        fd.append(key, self.employee[key]);
                     }
                     fd.append('photo', this.$refs.photo.files.item(0));
                     axios.post("employees/", fd, {
@@ -99,14 +105,22 @@
                         }
                     }).then(function (response) {
                         // handle success
-                        console.log(response);
+                        self.reset();
                         event.preventDefault();
                     }).catch(function (error) {
                         // handle error
                         console.log(error);
                     });
                     event.preventDefault();
-                }
+                },
+            },
+
+            mounted() {
+                this.employeeCopy = {...this.employee};
+            },
+
+            created() {
+                this.employeeBeforeEdit = Object.assign({}, this.employee);
             }
         })
     </script>
