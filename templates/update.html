@@ -10,7 +10,7 @@
 {% block content %}
     <div class="container pt-3" style="margin-top: 56px;">
         <div id="app" v-cloak>
-            <employee-badge-print :employee="employee"></employee-badge-print>
+{#            <employee-badge-print :employee="employee"></employee-badge-print>#}
             <form @submit="submit">
                 {% for field in form.visible_fields %}
                     {% if field.name != "photo" %}
@@ -43,8 +43,7 @@
     <script type="text/x-template" id="badge-template">
         <div>
             <div class="detail__header">
-                <h1 class="detail-header__certificate">Күбөлүк &#8470;[[ employee.serial ]]</h1>
-                <span>Hello World</span>
+                <h1 class="detail-header__certificate">Күбөлүк &#8470;{{ employee.agreement }}</h1>
             </div>
         </div>
     </script>
