@@ -10,16 +10,16 @@
 {% block style %}
     <style>
 
-        #printArea{
+        #printArea {
             display: none;
         }
 
         @media print {
-            .container{
-                display: none;
+            .container {
+                display: none !important;
             }
 
-            #printArea{
+            #printArea {
                 display: block;
             }
         }
@@ -27,41 +27,44 @@
 {% endblock style %}
 
 {% block content %}
-    <div class="container pt-3" style="margin-top: 56px;">
-        <div id="app" v-cloak>
-            {#            <employee-badge-print :employee="employee"></employee-badge-print>#}
-            <form @submit="submit">
-                {% for field in form.visible_fields %}
-                    {% if field.name != "photo" %}
-                        <div class="form-group">
-                            <label for="id_{{ field.name }}">{{ field.label }}</label>
-                            {% with vmodel="employee."|add:field.name %}
-                                {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
-                            {% endwith %}
-                        </div>
-                    {% endif %}
-                {% endfor %}
 
-                <label class="btn btn-primary btn-block mt-3">
-                    <i class="fa fa-image"></i>
-                    <span>{% trans "Сүрөт жүктөө" %}</span>
-                    <input type="file" name="photo" accept="image/*" id="id_photo"
-                           style="display: none;" ref="photo">
-                </label>
+    <div id="app" v-cloak>
+        <div class="container pt-3 d-flex justify-content-center" style="margin-top: 56px;">
+            <div style="width: 50%;">
+                {#            <employee-badge-print :employee="employee"></employee-badge-print>#}
+                <form @submit="submit">
+                    {% for field in form.visible_fields %}
+                        {% if field.name != "photo" %}
+                            <div class="form-group">
+                                <label for="id_{{ field.name }}">{{ field.label }}</label>
+                                {% with vmodel="employee."|add:field.name %}
+                                    {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
+                                {% endwith %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
 
-                <button type="button" class="btn btn-primary btn-block mt-3"
-                        @click="submit">{% trans "Сактоо" %}</button>
-            </form>
+                    <label class="btn btn-primary btn-block mt-3">
+                        <i class="fa fa-image"></i>
+                        <span>{% trans "Сүрөт жүктөө" %}</span>
+                        <input type="file" name="photo" accept="image/*" id="id_photo"
+                               style="display: none;" ref="photo">
+                    </label>
 
-            <button type="button" class="btn btn-block mt-3 mb-5" @click="print">Распечатать</button>
+                    <button type="button" class="btn btn-primary btn-block mt-3"
+                            @click="submit">{% trans "Сактоо" %}</button>
+                </form>
+
+                <button type="button" class="btn btn-block mt-3 mb-5" @click="print">Распечатать</button>
+            </div>
         </div>
+
+        <section id="printArea">
+            <div>
+                <h1>Example</h1>
+            </div>
+        </section>
     </div>
-
-    <section id="printArea">
-        <div>
-            <h1>Example</h1>
-        </div>
-    </section>
 
 {% endblock content %}
 

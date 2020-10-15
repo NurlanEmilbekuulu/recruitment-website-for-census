@@ -28,47 +28,47 @@
     {% block style %}{% endblock style %}
 </head>
 <body>
+
 {% get_current_language as LANGUAGE_CODE %}
-<div>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="/{{ LANGUAGE_CODE }}">
-                <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-                {% trans "Эл каттоо" %}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile"
-                    aria-controls="navbar-mobile" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbar-mobile">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/{{ LANGUAGE_CODE }}">{% trans "Башкы бет" %}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'employees' %}">{% trans "Кызматкерлер" %}</a>
-                    </li>
-                </ul>
-                <div class="dropdown-divider"></div>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{% trans "Кыргызча" %}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{% trans "Орусча" %}</a>
-                    </li>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/{{ LANGUAGE_CODE }}">
+            <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+            {% trans "Эл каттоо" %}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile"
+                aria-controls="navbar-mobile" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">{% trans "Чыгуу" %}</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbar-mobile">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/{{ LANGUAGE_CODE }}">{% trans "Башкы бет" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'employees' %}">{% trans "Кызматкерлер" %}</a>
+                </li>
+            </ul>
+            <div class="dropdown-divider"></div>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{% trans "Кыргызча" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{% trans "Орусча" %}</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">{% trans "Чыгуу" %}</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>
 
 {% block content %}{% endblock content %}
 
