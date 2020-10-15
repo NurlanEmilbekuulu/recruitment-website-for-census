@@ -4,13 +4,13 @@
 {% load widget_tweaks %}
 
 {% block title %}
-    <title>{% trans "Employees" %}</title>
+    <title>{% trans "Кызматкер" %}</title>
 {% endblock title %}
 
 {% block content %}
     <div class="container pt-3" style="margin-top: 56px;">
         <div id="app" v-cloak>
-{#            <employee-badge-print :employee="employee"></employee-badge-print>#}
+            {#            <employee-badge-print :employee="employee"></employee-badge-print>#}
             <form @submit="submit">
                 {% for field in form.visible_fields %}
                     {% if field.name != "photo" %}
@@ -25,13 +25,13 @@
 
                 <label class="btn btn-primary btn-block mt-3">
                     <i class="fa fa-image"></i>
-                    <span>{% trans "Upload photo" %}</span>
+                    <span>{% trans "Сүрөт жүктөө" %}</span>
                     <input type="file" name="photo" accept="image/*" id="id_photo"
                            style="display: none;" ref="photo">
                 </label>
 
                 <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
-                        @click="submit">{% trans "Save" %}</button>
+                        @click="submit">{% trans "Сактоо" %}</button>
             </form>
         </div>
     </div>
@@ -43,7 +43,7 @@
     <script type="text/x-template" id="badge-template">
         <div>
             <div class="detail__header">
-                <h1 class="detail-header__certificate">Күбөлүк &#8470;{{ employee.agreement }}</h1>
+                <h1 class="detail-header__certificate">{% trans 'Күбөлүк' %} &#8470;{{ employee.agreement }}</h1>
             </div>
         </div>
     </script>
@@ -70,16 +70,22 @@
 
             data: {
                 employee: {
-                    serial: 'ID',
-                    role: 1
+                    last_name: '{{ object.last_name }}',
+                    first_name: '{{ object.first_name }}',
+                    patronymic: '{{ object.patronymic }}',
+                    birth_day: '{{ object.birth_day|date:'d.m.Y' }}',
+                    address: '{{ object.address }}',
+                    serial: '{{ object.serial }}',
+                    passport_number: '{{ object.passport_number }}',
+                    PIN: '{{ object.PIN }}',
+                    role: '{{ object.role }}'
                 },
-                employeeBeforeEdit: {},
                 save: false,
             },
 
             methods: {
                 submit: function (event) {
-                    console.log(this.employee);
+                    let self = this;
                     let fd = new FormData();
                     for (let key in this.employee) {
                         fd.append(key, this.employee[key]);
@@ -91,9 +97,7 @@
                         }
                     }).then(function (response) {
                         // handle success
-                        console.log(response);
-                        Object.assign(this.employee, this.employeeBeforeEdit);
-                        event.preventDefault();
+                        self.employee = response.data;
                     }).catch(function (error) {
                         // handle error
                         console.log(error);
@@ -103,7 +107,6 @@
             },
 
             created() {
-                this.employeeBeforeEdit = this.employee;
             }
         })
     </script>

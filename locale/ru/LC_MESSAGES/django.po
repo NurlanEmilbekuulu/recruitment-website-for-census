@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 14:13+0600\n"
+"POT-Creation-Date: 2020-10-15 09:49+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,155 +20,206 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\census\models.py:10
-msgid "Coordinator"
-msgstr ""
+#: .\accounts\consts.py:4
+msgid "Администрация"
+msgstr "Администрация"
 
-#: .\census\models.py:11
-msgid "Instructor"
-msgstr ""
+#: .\accounts\consts.py:5
+msgid "Модератор"
+msgstr "Модератор"
 
-#: .\census\models.py:12
-msgid "Census Taker"
+#: .\accounts\models.py:10 .\census\models.py:32 .\census\models.py:100
+msgid "ролу"
+msgstr "роль"
+
+#: .\accounts\models.py:11 .\census\models.py:88
+msgid "район"
+msgstr "район"
+
+#: .\accounts\models.py:12
+msgid "сырсөз"
+msgstr "пароль"
+
+#: .\census\consts.py:22
+msgid "Координатор"
+msgstr "Координатор"
+
+#: .\census\consts.py:23
+msgid "Инструктор"
+msgstr "Инструктор"
+
+#: .\census\consts.py:24
+msgid "Каттоочу"
 msgstr "Переписчик"
 
-#: .\census\models.py:14
-msgid "last name"
-msgstr ""
+#: .\census\models.py:13
+msgid "фамилиясы"
+msgstr "фамилия"
+
+#: .\census\models.py:14 .\census\models.py:71 .\census\models.py:86
+msgid "аты"
+msgstr "имя"
 
 #: .\census\models.py:15
-msgid "first name"
-msgstr ""
+msgid "атасынын аты"
+msgstr "отчество"
 
 #: .\census\models.py:16
-msgid "patronymic"
-msgstr ""
+msgid "туулган күн"
+msgstr "дата рождения"
 
 #: .\census\models.py:17
-msgid "birth day"
-msgstr ""
+msgid "дарек"
+msgstr "адрес"
 
-#: .\census\models.py:18
-msgid "address"
-msgstr ""
+#: .\census\models.py:20
+msgid "паспорт сериасы"
+msgstr "серия паспорта"
 
-#: .\census\models.py:21
-msgid "serial"
-msgstr ""
+#: .\census\models.py:26
+msgid "паспорт номери"
+msgstr "номер паспорта"
 
-#: .\census\models.py:27
-msgid "passport number"
-msgstr ""
+#: .\census\models.py:30
+msgid "ПИН"
+msgstr "ПИН"
 
 #: .\census\models.py:31
-msgid "PIN"
-msgstr ""
-
-#: .\census\models.py:32
-msgid "photo"
-msgstr ""
+msgid "сүрөт"
+msgstr "фото"
 
 #: .\census\models.py:33
-msgid "role"
+msgid "келишим"
+msgstr "договор"
+
+#: .\census\models.py:34
+msgid "QR код"
+msgstr "QR код"
+
+#: .\census\models.py:37 .\templates\employee.html:6 .\templates\update.html:7
+msgid "Кызматкер"
+msgstr "Сотрудник"
+
+#: .\census\models.py:38 .\templates\base.html:49 .\templates\employees.html:7
+msgid "Кызматкерлер"
+msgstr "Сотрудники"
+
+#: .\census\models.py:70
+msgid "область"
+msgstr "область"
+
+#: .\census\models.py:72
+msgid "мам админстрация башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:36
-msgid "Employee"
+#: .\census\models.py:73
+msgid "статистика башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:37 .\templates\base.html:49 .\templates\employees.html:6
-msgid "Employees"
-msgstr ""
+#: .\census\models.py:74
+msgid "райондун борбору"
+msgstr "районный центр"
 
-#: .\census\models.py:45
-msgid "region"
-msgstr ""
+#: .\census\models.py:75
+msgid "статистика бөлүмдүн дареги"
+msgstr "адрес отдела статистики"
 
-#: .\census\models.py:46 .\census\models.py:61
-msgid "name"
-msgstr ""
+#: .\census\models.py:76
+msgid "келишимдин саны"
+msgstr "количество договоров"
 
-#: .\census\models.py:47
-msgid "Мам админстрация башчы (ААТ)"
-msgstr ""
+#: .\census\models.py:77
+msgid "райондун ID -си"
+msgstr "ID района"
 
-#: .\census\models.py:48
-msgid "Статистика башчы (ААТ)"
-msgstr ""
+#: .\census\models.py:80
+msgid "Район"
+msgstr "Район"
 
-#: .\census\models.py:49
-msgid "center of the district"
-msgstr ""
+#: .\census\models.py:81
+msgid "Райондор"
+msgstr "Районы"
 
-#: .\census\models.py:50
-msgid "stat address"
-msgstr ""
+#: .\census\models.py:87
+msgid "код"
+msgstr "код"
 
-#: .\census\models.py:52
-msgid "id of the district"
-msgstr ""
+#: .\census\models.py:91
+msgid "Аймак"
+msgstr "Территория"
 
-#: .\census\models.py:55
-msgid "District"
-msgstr ""
+#: .\census\models.py:92
+msgid "Аймактар"
+msgstr "Территории"
 
-#: .\census\models.py:56
-msgid "Districts"
-msgstr ""
+#: .\core\settings.py:102 .\templates\base.html:55
+msgid "Кыргызча"
+msgstr "Киргизский"
 
-#: .\census\models.py:62
-msgid "code"
-msgstr ""
+#: .\core\settings.py:103 .\templates\base.html:58
+msgid "Орусча"
+msgstr "Русский"
 
-#: .\census\models.py:63
-msgid "district"
-msgstr ""
-
-#: .\census\models.py:66
-msgid "Territory"
-msgstr ""
-
-#: .\census\models.py:67
-msgid "Territories"
-msgstr ""
-
-#: .\core\settings.py:96 .\templates\base.html:55
-msgid "Kyrgyz"
-msgstr ""
-
-#: .\core\settings.py:97 .\templates\base.html:58
-msgid "Russian"
-msgstr ""
+#: .\templates\admin\profile_change_list.html:6
+msgid "Колдонуучуларды түзүү"
+msgstr "Генерация пользователей"
 
 #: .\templates\base.html:36 .\templates\index.html:7
-#, fuzzy
-#| msgid "Census Taker"
-msgid "Census"
-msgstr "Переписчик"
+msgid "Эл каттоо"
+msgstr "Перепись населения"
 
 #: .\templates\base.html:46
-msgid "Home"
+msgid "Башкы бет"
+msgstr "Главная"
+
+#: .\templates\base.html:63
+msgid "Чыгуу"
+msgstr "Выход"
+
+#: .\templates\employees.html:43
+msgid "Издөө"
+msgstr "Поиск"
+
+#: .\templates\employees.html:53
+msgid "Аракет"
+msgstr "Действия"
+
+#: .\templates\employees.html:54
+msgid "Аты-жөнү"
+msgstr "ФИО"
+
+#: .\templates\employees.html:55
+msgid "Ролу"
+msgstr "Роль"
+
+#: .\templates\employees.html:56
+msgid "Келишим"
+msgstr "Договор"
+
+#: .\templates\employees.html:64
+#: .\venv\Lib\site-packages\django\forms\widgets.py:400
+msgid "Change"
 msgstr ""
 
-#: .\templates\employees.html:14
-msgid "Name"
-msgstr ""
+#: .\templates\employees.html:69
+msgid "Кененирээк"
+msgstr "Подробнее"
 
-#: .\templates\employees.html:15
-msgid "Surname"
-msgstr ""
-
-#: .\templates\employees.html:16
-msgid "Role"
-msgstr ""
-
-#: .\templates\index.html:31
-msgid "Upload photo"
+#: .\templates\index.html:51 .\templates\update.html:28
+msgid "Сүрөт жүктөө"
 msgstr "Загрузить фото"
 
-#: .\templates\index.html:35
-msgid "Save"
-msgstr ""
+#: .\templates\index.html:57 .\templates\update.html:34
+msgid "Сактоо"
+msgstr "Сохранить"
+
+#: .\templates\registration\login.html:59
+msgid "Сайтка кирүү"
+msgstr "Войти"
+
+#: .\templates\update.html:46
+msgid "Күбөлүк"
+msgstr "Сертификат"
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:7
 msgid "Messages"
@@ -773,10 +824,6 @@ msgstr ""
 msgid "Currently"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\widgets.py:400
-msgid "Change"
-msgstr ""
-
 #: .\venv\Lib\site-packages\django\forms\widgets.py:709
 msgid "Unknown"
 msgstr ""
@@ -1354,6 +1401,3 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:409
 msgid "Connect, get help, or contribute"
 msgstr ""
-
-#~ msgid "Hello World"
-#~ msgstr "Привет мир"

@@ -99,8 +99,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ky'
 
 LANGUAGES = [
-    ('ky', _('Kyrgyz')),
-    ('ru', _('Russian')),
+    ('ky', _('Кыргызча')),
+    ('ru', _('Орусча')),
 ]
 
 LOCALE_PATHS = [

@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}
-    <title>{% trans "Employees" %}</title>
+    <title>{% trans "Кызматкер" %}</title>
 {% endblock title %}
 
 {% block style %}
@@ -193,15 +193,21 @@
             z-index: 10;
         }
 
-        .card-container{
+        .card-container {
             width: 400px;
             margin-top: 50px;
         }
 
-        .employee-info-container{
+        .employee-info-container {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        @media screen and (max-width: 768px) {
+            .detail-header__certificate {
+                font-size: 1.3em;
+            }
         }
     </style>
 {% endblock style %}
@@ -212,8 +218,8 @@
         <div class="employee-info-container">
             <div class="card-container">
                 <div class="card user-card">
-                    <div class="card-header">
-                        <h5>Profile</h5>
+                    <div class="card-header text-center">
+                        <h1 class="detail-header__certificate">Удостоверение №410429</h1>
                     </div>
                     <div class="card-block">
                         <div class="user-image">
