@@ -7,6 +7,25 @@
     <title>{% trans "Кызматкер" %}</title>
 {% endblock title %}
 
+{% block style %}
+    <style>
+
+        #printArea{
+            display: none;
+        }
+
+        @media print {
+            .container{
+                display: none;
+            }
+
+            #printArea{
+                display: block;
+            }
+        }
+    </style>
+{% endblock style %}
+
 {% block content %}
     <div class="container pt-3" style="margin-top: 56px;">
         <div id="app" v-cloak>
@@ -30,11 +49,19 @@
                            style="display: none;" ref="photo">
                 </label>
 
-                <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
+                <button type="button" class="btn btn-primary btn-block mt-3"
                         @click="submit">{% trans "Сактоо" %}</button>
             </form>
+
+            <button type="button" class="btn btn-block mt-3 mb-5" @click="print">Распечатать</button>
         </div>
     </div>
+
+    <section id="printArea">
+        <div>
+            <h1>Example</h1>
+        </div>
+    </section>
 
 {% endblock content %}
 
@@ -103,6 +130,10 @@
                         console.log(error);
                     });
                     event.preventDefault();
+                },
+
+                print() {
+                    window.print();
                 }
             },
 
