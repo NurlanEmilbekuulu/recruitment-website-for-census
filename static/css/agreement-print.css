@@ -1,0 +1,53 @@
+@charset "utf-8";
+@page {
+    size: A4 portrait;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    margin: 0;
+    padding: 0;
+}
+
+
+.no-print {
+    display: none;
+}
+
+.print-container {
+    font-size: 20px;
+    margin: 2.5cm 2cm 0 3.5cm;
+    padding: 0;
+}
+
+.title {
+    font-size: 23px;
+    font-weight: bold !important;
+}
+
+.print-container:not(.second) {
+    page-break-after: always;
+}
+
+p {
+    margin: 0px;
+    line-height: 25px;
+}
+
+p.m1 {
+    margin: 5px 2px;
+}
+
+table {
+    width: 900px;
+}
+
+.btn-print {
+    display: none;
+}

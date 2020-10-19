@@ -14,6 +14,10 @@
             display: none;
         }
 
+        .form-container {
+            width: 100%;
+        }
+
         @media print {
             .container {
                 display: none !important;
@@ -23,6 +27,12 @@
                 display: block;
             }
         }
+
+        @media screen and (min-width: 768px) {
+            .form-container {
+                width: 50%;
+            }
+        }
     </style>
 {% endblock style %}
 
@@ -30,8 +40,7 @@
 
     <div id="app" v-cloak>
         <div class="container pt-3 d-flex justify-content-center" style="margin-top: 56px;">
-            <div style="width: 50%;">
-                {#            <employee-badge-print :employee="employee"></employee-badge-print>#}
+            <div class="form-container">
                 <form @submit="submit">
                     {% for field in form.visible_fields %}
                         {% if field.name != "photo" %}
@@ -59,11 +68,8 @@
             </div>
         </div>
 
-        <section id="printArea">
-            <div>
-                <h1>Example</h1>
-            </div>
-        </section>
+
+        <employee-badge-print :employee="employee"></employee-badge-print>
     </div>
 
 {% endblock content %}
@@ -71,11 +77,44 @@
 {% block js %}
 
     <script type="text/x-template" id="badge-template">
-        <div>
-            <div class="detail__header">
-                <h1 class="detail-header__certificate">{% trans 'Күбөлүк' %} &#8470;{{ employee.agreement }}</h1>
+        <section class="section__print" id="printArea">
+            <div class="badge__main d-flex">
+                <div class="badge__content mx-auto">
+                    <div class="badge-content__top">
+                        <div class="employee__info">
+                            <div class="employee-info__fio">
+                                <p class="certificate">{% trans 'Certificate' %} &#8470;{{ object.agreement }}</p>
+                                <p class="role">{{ object.get_role }}</p>
+                                <p>{{ object.last_name|upper }}</p>
+                                <p>{{ object.first_name|upper }}</p>
+                                {% if object.patronymic %}
+                                    <p>{{ object.patronymic|upper }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="employee-info__image">
+                                {% if object.photo %}
+                                    <img class="user-image" src="{{ object.photo.url }}" alt="">
+                                {% else %}
+                                    <img class="user-image" src="{% static 'img/nophoto.png' %}" alt="">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="badge-content__bottom">
+                        <div class="qr-code__container d-flex">
+                            <img class="qr-code my-auto mx-auto" src="{{ object.qrcode.url }}" alt="">
+                        </div>
+
+                        <div class="admin-info__container">
+{#                            <p>{% get_initials object.district.gov_admin %}</p>#}
+                            <p class="badge-help">Райондук (шаардык) мамадминистрация башчысы, колу</p>
+{#                            <p>{% get_initials object.district.stat_admin %}</p>#}
+                            <p class="badge-help">Райондук(шаардык) мамстатистика башчысы, колу</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </script>
 
     <script>
@@ -121,7 +160,7 @@
                         fd.append(key, this.employee[key]);
                     }
                     fd.append('photo', this.$refs.photo.files.item(0));
-                    axios.post("employees/", fd, {
+                    axios.put("employees/{{ object.id }}/", fd, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }

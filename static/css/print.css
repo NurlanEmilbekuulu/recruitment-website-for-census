@@ -1,0 +1,134 @@
+html, body{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.no-print {
+    display: none;
+}
+
+
+.section__print{
+    display: block;
+    visibility: visible;
+    width: 9cm !important;
+    height: 13cm !important;
+    margin-left: 20px;
+}
+
+.badge-content__top .employee__info{
+    display: grid;
+    grid-template-columns: auto 3.3cm;
+    grid-gap: 10px;
+    padding: 10px 5px 10px 0;
+}
+
+.employee-info__image img{
+    width: 3.3cm;
+    height: 4.3cm;
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
+.employee-info__fio{
+    text-align: right;
+}
+
+
+.employee-info__fio p {
+    margin-bottom: .1em;
+    font-weight: normal;
+    text-transform: capitalize;
+    font-size: 18px;
+}
+
+.employee-info__fio .certificate {
+    font-size: 19px;
+    color: red;
+    margin-bottom: .7em;
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.employee-info__fio .role {
+    color: red;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    margin-bottom: .7em;
+    font-weight: 400;
+}
+
+
+@page {
+    margin:0cm;
+    padding: 0cm;
+  }
+
+
+.badge-content__bottom{
+    display: grid;
+    grid-template-columns: 130px auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.qr-code__container{
+
+}
+
+.verification {
+    font-size: 9px;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: justify;
+    margin-bottom: 0;
+}
+
+.badge-help{
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.qr-code {
+    width: 120px;
+}
+
+.admin-info__container{
+    margin: 20px 10px 0;
+    padding-top: 10px;
+}
+
+
+.admin-info__container p:not(.badge-help){
+    border-bottom: 1px solid black;
+    font-size: .9em;
+    letter-spacing: -.04em;
+    padding-bottom: -1px;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+.qr-code__container{
+    text-align: center;
+}
+
+.badge__main{
+    margin-top: 125px;
+}
+
+.button__items{
+    display: none;
+}
+
+[lang='ru'] .employee-info__fio .certificate {
+    font-size: 15px;
+}
+
+[lang='ru'] .employee-info__fio{
+    margin-left: 0;
+}
+
