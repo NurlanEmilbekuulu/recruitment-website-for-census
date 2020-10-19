@@ -1,186 +1,241 @@
-p{
-	text-align: justify;
+p {
+    text-align: justify;
 }
 
-.text-center{
-	text-align: center;
+.text-center {
+    text-align: center;
 }
 
-.text-right{
-	text-align: right;
+.text-right {
+    text-align: right;
 }
 
-.text-left{
-	text-align: left;
+.text-left {
+    text-align: left;
 }
 
-.indent{
-	text-indent: 40px;
+.indent {
+    text-indent: 40px;
 }
 
-@media screen{
-	.print-container{
-		width: 800px;
-		margin: 2cm auto;
-		border: 1px solid lightgrey;
-		padding: 2cm;
-	}
+@media screen {
+    .print-container {
+        width: 800px;
+        margin: 2cm auto;
+        border: 1px solid lightgrey;
+        padding: 2cm;
+    }
 
-	p{
-	margin: 2px;
+    p {
+        margin: 2px;
+    }
+
+    p.m1 {
+        margin: 5px 2px;
+    }
+
 }
 
-p.m1{
-	margin: 5px 2px;
+.date {
+    margin: 20px;
 }
 
+.list-item {
+    text-indent: 40px;
 }
 
-.date{
-	margin: 20px;
+.list-item:before {
+    margin-right: 20px;
 }
 
-.list-item{
-	text-indent: 40px;
+#i-11:before {
+    content: '1.1';
 }
 
-.list-item:before{
-	margin-right: 20px;
+#i-12:before {
+    content: '1.2';
 }
 
-#i-11:before{
-	content: '1.1';
+#i-13:before {
+    content: '1.3';
 }
 
-#i-12:before{
-	content: '1.2';
+#i-131:before {
+    content: '1.3.1';
 }
 
-#i-13:before{
-	content: '1.3';
+#i-132:before {
+    content: '1.3.2';
 }
 
-#i-131:before{
-	content: '1.3.1';
+#i-14:before {
+    content: '1.4';
 }
 
-#i-132:before{
-	content: '1.3.2';
+#i-15:before {
+    content: '1.5';
 }
 
-#i-14:before{
-	content: '1.4';
+#i-16:before {
+    content: '1.6';
 }
 
-#i-15:before{
-	content: '1.5';
+#i-21:before {
+    content: '2.1';
 }
 
-#i-16:before{
-	content: '1.6';
+#i-211:before {
+    content: '2.1.1';
 }
 
-#i-21:before{
-	content: '2.1';
+#i-212:before {
+    content: '2.1.2';
 }
 
-#i-211:before{
-	content: '2.1.1';
+#i-213:before {
+    content: '2.1.3';
 }
 
-#i-212:before{
-	content: '2.1.2';
+#i-214:before {
+    content: '2.1.4';
 }
 
-#i-213:before{
-	content: '2.1.3';
+#i-215:before {
+    content: '2.1.5';
 }
 
-#i-214:before{
-	content: '2.1.4';
+#i-216:before {
+    content: '2.1.6';
 }
 
-#i-215:before{
-	content: '2.1.5';
+#i-22:before {
+    content: '2.2';
 }
 
-#i-216:before{
-	content: '2.1.6';
+#i-221:before {
+    content: '2.2.1';
 }
 
-#i-22:before{
-	content: '2.2';
+#i-31:before {
+    content: '3.1';
 }
 
-#i-221:before{
-	content: '2.2.1';
+#i-32:before {
+    content: '3.2';
 }
 
-#i-31:before{
-	content: '3.1';
+#i-33:before {
+    content: '3.3';
 }
 
-#i-32:before{
-	content: '3.2';
+#i-41:before {
+    content: '4.1';
 }
 
-#i-33:before{
-	content: '3.3';
+#i-42:before {
+    content: '4.2';
 }
 
-#i-41:before{
-	content: '4.1';
+#i-43:before {
+    content: '4.3';
 }
 
-#i-42:before{
-	content: '4.2';
+#i-44:before {
+    content: '4.4';
 }
 
-#i-43:before{
-	content: '4.3';
+#i-45:before {
+    content: '4.5';
 }
 
-#i-44:before{
-	content: '4.4';
+#i-51:before {
+    content: '5.1';
 }
 
-#i-45:before{
-	content: '4.5';
+#i-61:before {
+    content: '6.1';
 }
 
-#i-51:before{
-	content: '5.1';
+#i-62:before {
+    content: '6.2';
 }
 
-#i-61:before{
-	content: '6.1';
+#i-71:before {
+    content: '7.1';
 }
 
-#i-62:before{
-	content: '6.2';
+#i-72:before {
+    content: '7.2';
 }
 
-#i-71:before{
-	content: '7.1';
+table {
+    margin: 20px auto;
 }
 
-#i-72:before{
-	content: '7.2';
+.credentials {
+    margin-top: 40px;
 }
 
-table{
-	margin: 20px auto;
-}
-
-.credentials{
-	margin-top: 40px;
-}
-
-.credentials p{
-	font-size: 16px;
+.credentials p {
+    font-size: 16px;
 }
 
 .title {
     font-size: 18.667px;
     font-weight: bold !important;
+}
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    section {
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .no-print {
+        display: none;
+    }
+
+    .print-container {
+        font-size: 20px;
+        margin: 2.5cm 2cm 0 3.5cm;
+        padding: 0;
+    }
+
+    .title {
+        font-size: 23px;
+        font-weight: bold !important;
+    }
+
+    .print-container:not(.second) {
+        page-break-after: always;
+    }
+
+    p {
+        margin: 0;
+        line-height: 25px;
+    }
+
+    p.m1 {
+        margin: 5px 2px;
+    }
+
+    table {
+        width: 900px;
+    }
+
+    .btn-print {
+        display: none;
+    }
 }
