@@ -12,4 +12,4 @@ class EmployeeCreateForm(forms.ModelForm):
 class EmployeeUpdateForm(forms.ModelForm):
     class Meta:
         model = Employee
-        exclude = ['agreement', 'qr_code']
+        exclude = ['agreement', 'qr_code', 'photo']

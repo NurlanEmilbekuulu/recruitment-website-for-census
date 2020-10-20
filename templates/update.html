@@ -106,9 +106,9 @@
                         </div>
 
                         <div class="admin-info__container">
-{#                            <p>{% get_initials object.district.gov_admin %}</p>#}
+                            {#                            <p>{% get_initials object.district.gov_admin %}</p>#}
                             <p class="badge-help">Райондук (шаардык) мамадминистрация башчысы, колу</p>
-{#                            <p>{% get_initials object.district.stat_admin %}</p>#}
+                            {#                            <p>{% get_initials object.district.stat_admin %}</p>#}
                             <p class="badge-help">Райондук(шаардык) мамстатистика башчысы, колу</p>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                     serial: '{{ object.serial }}',
                     passport_number: '{{ object.passport_number }}',
                     PIN: '{{ object.PIN }}',
-                    role: '{{ object.role }}'
+                    role: '{{ object.role }}',
                 },
                 save: false,
             },
@@ -159,8 +159,11 @@
                     for (let key in this.employee) {
                         fd.append(key, this.employee[key]);
                     }
-                    fd.append('photo', this.$refs.photo.files.item(0));
-                    axios.put("employees/{{ object.id }}/", fd, {
+                    if (this.$refs.photo.files.length !== 0) {
+                        fd.append('photo', this.$refs.photo.files.item(0));
+                    }
+
+                    axios.patch("employees/{{ object.id }}/", fd, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
