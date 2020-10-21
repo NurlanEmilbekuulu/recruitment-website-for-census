@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-15 09:49+0600\n"
+"POT-Creation-Date: 2020-10-21 11:30+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,11 +28,11 @@ msgstr "Администрация"
 msgid "Модератор"
 msgstr "Модератор"
 
-#: .\accounts\models.py:10 .\census\models.py:32 .\census\models.py:100
+#: .\accounts\models.py:10 .\census\models.py:32 .\census\models.py:105
 msgid "ролу"
 msgstr "роль"
 
-#: .\accounts\models.py:11 .\census\models.py:88
+#: .\accounts\models.py:11 .\census\models.py:93
 msgid "район"
 msgstr "район"
 
@@ -56,7 +56,7 @@ msgstr "Переписчик"
 msgid "фамилиясы"
 msgstr "фамилия"
 
-#: .\census\models.py:14 .\census\models.py:71 .\census\models.py:86
+#: .\census\models.py:14 .\census\models.py:76 .\census\models.py:91
 msgid "аты"
 msgstr "имя"
 
@@ -88,75 +88,79 @@ msgstr "ПИН"
 msgid "сүрөт"
 msgstr "фото"
 
-#: .\census\models.py:33
+#: .\census\models.py:36
+msgid "aймак"
+msgstr "территория"
+
+#: .\census\models.py:38
 msgid "келишим"
 msgstr "договор"
 
-#: .\census\models.py:34
+#: .\census\models.py:39
 msgid "QR код"
 msgstr "QR код"
 
-#: .\census\models.py:37 .\templates\employee.html:6 .\templates\update.html:7
+#: .\census\models.py:42 .\templates\employee.html:6 .\templates\update.html:7
 msgid "Кызматкер"
 msgstr "Сотрудник"
 
-#: .\census\models.py:38 .\templates\base.html:49 .\templates\employees.html:7
+#: .\census\models.py:43 .\templates\base.html:51 .\templates\employees.html:7
 msgid "Кызматкерлер"
 msgstr "Сотрудники"
 
-#: .\census\models.py:70
+#: .\census\models.py:75
 msgid "область"
 msgstr "область"
 
-#: .\census\models.py:72
+#: .\census\models.py:77
 msgid "мам админстрация башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:73
+#: .\census\models.py:78
 msgid "статистика башчы (ААТ)"
 msgstr ""
 
-#: .\census\models.py:74
+#: .\census\models.py:79
 msgid "райондун борбору"
 msgstr "районный центр"
 
-#: .\census\models.py:75
+#: .\census\models.py:80
 msgid "статистика бөлүмдүн дареги"
 msgstr "адрес отдела статистики"
 
-#: .\census\models.py:76
+#: .\census\models.py:81
 msgid "келишимдин саны"
 msgstr "количество договоров"
 
-#: .\census\models.py:77
+#: .\census\models.py:82
 msgid "райондун ID -си"
 msgstr "ID района"
 
-#: .\census\models.py:80
+#: .\census\models.py:85
 msgid "Район"
 msgstr "Район"
 
-#: .\census\models.py:81
+#: .\census\models.py:86
 msgid "Райондор"
 msgstr "Районы"
 
-#: .\census\models.py:87
+#: .\census\models.py:92
 msgid "код"
 msgstr "код"
 
-#: .\census\models.py:91
+#: .\census\models.py:96
 msgid "Аймак"
 msgstr "Территория"
 
-#: .\census\models.py:92
+#: .\census\models.py:97
 msgid "Аймактар"
 msgstr "Территории"
 
-#: .\core\settings.py:102 .\templates\base.html:55
+#: .\core\settings.py:102 .\templates\base.html:57
 msgid "Кыргызча"
 msgstr "Киргизский"
 
-#: .\core\settings.py:103 .\templates\base.html:58
+#: .\core\settings.py:103 .\templates\base.html:60
 msgid "Орусча"
 msgstr "Русский"
 
@@ -164,19 +168,19 @@ msgstr "Русский"
 msgid "Колдонуучуларды түзүү"
 msgstr "Генерация пользователей"
 
-#: .\templates\base.html:36 .\templates\index.html:7
+#: .\templates\base.html:38 .\templates\index.html:7
 msgid "Эл каттоо"
 msgstr "Перепись населения"
 
-#: .\templates\base.html:46
+#: .\templates\base.html:48
 msgid "Башкы бет"
 msgstr "Главная"
 
-#: .\templates\base.html:63
+#: .\templates\base.html:65
 msgid "Чыгуу"
 msgstr "Выход"
 
-#: .\templates\employees.html:43
+#: .\templates\employees.html:42
 msgid "Издөө"
 msgstr "Поиск"
 
@@ -205,11 +209,11 @@ msgstr ""
 msgid "Кененирээк"
 msgstr "Подробнее"
 
-#: .\templates\index.html:51 .\templates\update.html:28
+#: .\templates\index.html:58 .\templates\update.html:58
 msgid "Сүрөт жүктөө"
 msgstr "Загрузить фото"
 
-#: .\templates\index.html:57 .\templates\update.html:34
+#: .\templates\index.html:64 .\templates\update.html:64
 msgid "Сактоо"
 msgstr "Сохранить"
 
@@ -217,7 +221,7 @@ msgstr "Сохранить"
 msgid "Сайтка кирүү"
 msgstr "Войти"
 
-#: .\templates\update.html:46
+#: .\templates\update.html:86
 msgid "Күбөлүк"
 msgstr "Сертификат"
 

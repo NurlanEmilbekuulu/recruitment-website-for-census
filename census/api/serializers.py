@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField, ReadOnlyField
+from rest_framework.serializers import ModelSerializer, SerializerMethodField, ReadOnlyField, DateField
 from census.models import Employee
 
 
@@ -7,6 +7,7 @@ class EmployeeSerializer(ModelSerializer):
     agreement_url_suffix = SerializerMethodField()
     full_name = ReadOnlyField()
     role_str = ReadOnlyField()
+    birth_day = DateField(format='%d.%m.%Y')
 
     class Meta:
         model = Employee

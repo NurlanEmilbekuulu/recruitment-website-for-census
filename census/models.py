@@ -30,6 +30,11 @@ class Employee(models.Model):
     PIN = models.CharField(_('ПИН'), max_length=14, unique=True)
     photo = models.ImageField(_('сүрөт'), upload_to='employee/photos')
     role = models.PositiveSmallIntegerField(_('ролу'), choices=ROLE_CHOICES, default=1)
+    territory = models.ForeignKey(
+        'census.Territory',
+        on_delete=models.SET_NULL,
+        verbose_name=_('aймак'),
+        null=True, blank=False)
     agreement = models.CharField(_('келишим'), max_length=6, blank=True, null=True)
     qr_code = models.ImageField(_('QR код'), upload_to='employee/qr-codes', blank=True, null=True)
 

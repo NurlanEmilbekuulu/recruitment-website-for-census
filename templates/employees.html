@@ -101,8 +101,13 @@
                     });
                 },
 
+                apply_filterset(item) {
+                    return item.last_name === 'Асанов';
+                },
+
                 filter() {
-                    console.log(this.filterset);
+                    let filtered = this.employees.filter(this.apply_filterset);
+                    console.log(filtered);
                 }
             },
 
