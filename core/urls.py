@@ -4,8 +4,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from accounts.views import LanguageView
+
 urlpatterns = [
-    path('api/', include('census.api.urls'))
+    path('api/', include('census.api.urls')),
+    path('lang/<str:lang>', LanguageView.as_view(), name='lang')
 ]
 
 urlpatterns += i18n_patterns(

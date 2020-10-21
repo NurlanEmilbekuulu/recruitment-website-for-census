@@ -1,7 +1,8 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="ky">
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -30,8 +31,6 @@
 </head>
 <body>
 
-{% get_current_language as LANGUAGE_CODE %}
-
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="/{{ LANGUAGE_CODE }}">
@@ -55,10 +54,10 @@
             <div class="dropdown-divider"></div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{% trans "Кыргызча" %}</a>
+                    <a class="nav-link" href="/ky">{% trans "Кыргызча" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{% trans "Орусча" %}</a>
+                    <a class="nav-link" href="/ru">{% trans "Орусча" %}</a>
                 </li>
 
                 {% if user.is_authenticated %}

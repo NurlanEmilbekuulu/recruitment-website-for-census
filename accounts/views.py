@@ -21,3 +21,10 @@ class UAGView(View):
         messages.success(request, 'Profile updated successfully')
         return redirect(reverse_lazy('admin:accounts_profile_changelist'))
 
+
+class LanguageView(View):
+
+    @staticmethod
+    def get(request, lang):
+        request.session['_language'] = lang
+        return redirect(request.META.get('HTTP_REFERER', '/'))
