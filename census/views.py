@@ -11,6 +11,11 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'index.html'
     form_class = EmployeeCreateForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
 
 class FiltersetFormView(TemplateView):
     filterset: object
