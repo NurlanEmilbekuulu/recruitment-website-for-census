@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load census_extras %}
 
 {% block title %}
     <title>{% trans "Кызматкерлер" %}</title>
@@ -26,26 +27,23 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="filter-container">
-                    <form class="filter-form">
+                    <form class="filter-form" method="get">
                         <div class="form-row">
-                            {% for field in form.visible_fields %}
+                            {% for field in filterset.form.visible_fields %}
                                 <div class="form-group col-md-12">
                                     <label for="id_{{ field.name|lower }}">{{ field.label }}</label>
-                                    {% with vmodel="filterset."|add:field.name %}
-                                        {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
-                                    {% endwith %}
+                                    {% render_field field class="form-control" autocomplete="off" %}
                                 </div>
                             {% endfor %}
                         </div>
-                        <button type="button"
-                                class="btn btn-block mt-2 shadow-none search-btn"
-                                @click="filter">{% trans 'Издөө' %}</button>
+                        <button type="submit"
+                                class="btn btn-block mt-2 shadow-none search-btn">{% trans 'Издөө' %}</button>
                     </form>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="table-responsive">
-                    <table v-if="employees.length > 0" class="table table-hover table-bordered" id="myTable"
+                    <table class="table table-hover table-bordered" id="myTable"
                            data-card-width="1000">
                         <thead>
                         <tr>
@@ -58,20 +56,71 @@
                         </thead>
 
                         <tbody>
-                        <tr v-for="(employee, index) in employees">
-                            <td>[[index + 1]]</td>
-                            <td>
-                                <a :href="'/{{ LANGUAGE_CODE }}' + employee.update_url_suffix">{% trans 'Change' %}</a>
-                            </td>
-                            <td>[[ employee.full_name ]]</td>
-                            <td>[[ employee.role_str ]]</td>
-                            <td>
-                                <a :href="'/{{ LANGUAGE_CODE }}' + employee.agreement_url_suffix">{% trans 'Кененирээк' %}</a>
-                            </td>
-                        </tr>
+                        {% for employee in object_list %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <a href="{% url 'update' employee.pk %}">{% trans 'Change' %}</a>
+                                </td>
+                                <td>{{ employee.full_name }}</td>
+                                <td>{{ employee.role_str }}</td>
+                                <td>
+                                    <a href="{% url 'agreement' employee.pk %}">{% trans 'Кененирээк' %}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
+
+                {% if is_paginated %}
+                    <div class="d-flex">
+                        <nav aria-label="Employee list pagination" class="mx-auto">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="?{% param_replace page=page_obj.previous_page_number %}">&laquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Мурдакы барак</span>
+                        </span>
+                                    </li>
+                                {% endif %}
+                                {% for i in paginator.page_range %}
+                                    {% if i <= page_obj.number|add:5 and i >= page_obj.number|add:-5 %}
+                                        {% if page_obj.number == i %}
+                                            <li class="page-item active"><span
+                                                    class="page-link">{{ forloop.counter }} <span
+                                                    class="sr-only">(current)</span></span></li>
+                                        {% else %}
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                   href="?{% param_replace page=forloop.counter %}">{{ forloop.counter }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="?{% param_replace page=page_obj.next_page_number %}">&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Кийинки барак</span>
+                        </span>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -84,36 +133,11 @@
             delimiters: ['[[', ']]'],
             data: function () {
                 return {
-                    employees: [],
-                    filterset: {
-                        first_name__icontains: '',
-                        last_name__icontains: '',
-                        PIN: '',
-                        role: 1
-                    }
+                    message: "Hello World"
                 }
             },
 
-            methods: {
-                getEmployees() {
-                    axios.get("employees/").then(response => {
-                        this.employees = response.data;
-                    });
-                },
-
-                apply_filterset(item) {
-                    return item.last_name === 'Асанов';
-                },
-
-                filter() {
-                    let filtered = this.employees.filter(this.apply_filterset);
-                    console.log(filtered);
-                }
-            },
-
-            mounted: function () {
-                this.getEmployees();
-            },
+            methods: {}
         })
     </script>
 {% endblock js %}

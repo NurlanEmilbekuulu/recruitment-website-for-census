@@ -17,20 +17,35 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class FiltersetFormView(TemplateView):
+class FilteredListView(ListView):
     filterset: object
     filterset_class = None
 
-    def get_context_data(self, *args, **kwargs):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.filterset = self.filterset_class()
-        context['form'] = self.filterset.form
+        context['filterset'] = self.filterset
         return context
 
 
-class EmployeeListView(LoginRequiredMixin, FiltersetFormView):
+class EmployeeListView(LoginRequiredMixin, FilteredListView):
     filterset_class = EmployeeFilter
+    paginate_by = 20
+    model = Employee
     template_name = 'employees.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        if self.request.user.is_superuser:
+            return queryset
+
+        filtered = queryset.filter(territory__district=self.request.user.profile.district)
+        return filtered
 
 
 class EmployeeDetailView(DetailView):
