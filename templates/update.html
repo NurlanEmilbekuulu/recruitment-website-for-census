@@ -41,14 +41,13 @@
     <div id="app" v-cloak>
         <div class="container pt-3 d-flex justify-content-center" style="margin-top: 56px;">
             <div class="form-container">
-                <form @submit="submit">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     {% for field in form.visible_fields %}
                         {% if field.name != "photo" %}
                             <div class="form-group">
                                 <label for="id_{{ field.name }}">{{ field.label }}</label>
-                                {% with vmodel="employee."|add:field.name %}
-                                    {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
-                                {% endwith %}
+                                {% render_field field class="form-control" autocomplete="off" %}
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -56,20 +55,18 @@
                     <label class="btn btn-primary btn-block mt-3">
                         <i class="fa fa-image"></i>
                         <span>{% trans "Сүрөт жүктөө" %}</span>
-                        <input type="file" name="photo" accept="image/*" id="id_photo"
-                               style="display: none;" ref="photo">
+                        {% render_field form.photo style="display: none;" %}
                     </label>
 
-                    <button type="button" class="btn btn-primary btn-block mt-3"
-                            @click="submit">{% trans "Сактоо" %}</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-3">{% trans "Сактоо" %}</button>
                 </form>
 
-                <button type="button" class="btn btn-block mt-3 mb-5" @click="print">Распечатать</button>
+                <button type="button" class="btn btn-block mt-3 mb-5" @click="print">Распечатать
+                </button>
             </div>
         </div>
 
-
-        <employee-badge-print :employee="employee"></employee-badge-print>
+        <employee-badge-print></employee-badge-print>
     </div>
 
 {% endblock content %}
@@ -118,18 +115,14 @@
     </script>
 
     <script>
+
         Vue.component('employee-badge-print', {
             delimiters: ['[[', ']]'],
             template: '#badge-template',
-            props: {
-                employee: {
-                    type: Object,
-                    required: true
-                }
-            },
+
             data() {
                 return {
-                    count: 0
+                    msg: 'Hi!'
                 }
             },
         })
@@ -138,47 +131,21 @@
             el: '#app',
 
             data: {
-                employee: {
-                    last_name: '{{ object.last_name }}',
-                    first_name: '{{ object.first_name }}',
-                    patronymic: '{{ object.patronymic }}',
-                    birth_day: '{{ object.birth_day|date:'d.m.Y' }}',
-                    address: '{{ object.address }}',
-                    serial: '{{ object.serial }}',
-                    passport_number: '{{ object.passport_number }}',
-                    PIN: '{{ object.PIN }}',
-                    role: '{{ object.role }}',
-                    territory: '{{ object.territory.id }}'
-                },
                 save: false,
             },
 
             methods: {
-                submit: function (event) {
-                    let self = this;
-                    let fd = new FormData();
-                    for (let key in this.employee) {
-                        fd.append(key, this.employee[key]);
-                    }
-                    if (this.$refs.photo.files.length !== 0) {
-                        fd.append('photo', this.$refs.photo.files.item(0));
-                    }
-
-                    axios.patch("employees/{{ object.id }}/", fd, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }).then(function (response) {
-                        // handle success
-                        console.log(response.data);
-                    }).catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    });
-                    event.preventDefault();
-                },
-
                 print() {
+                    $.ajax({
+                        url: '/ajax/print-confirm/',
+                        data: {},
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.okay) {
+                                alert("OKAY!!!");
+                            }
+                        }
+                    });
                     window.print();
                 }
             },

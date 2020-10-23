@@ -1,4 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views import View
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, TemplateView
 
 from census.filters import EmployeeFilter
@@ -10,6 +12,7 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
     model = Employee
     template_name = 'index.html'
     form_class = EmployeeCreateForm
+    success_url = '/'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -53,12 +56,28 @@ class EmployeeDetailView(DetailView):
     template_name = 'employee.html'
 
 
-class EmployeeUpdateView(UpdateView):
+class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     model = Employee
     template_name = 'update.html'
     form_class = EmployeeUpdateForm
 
 
-class AgreementDetailView(DetailView):
+class AgreementDetailView(LoginRequiredMixin, DetailView):
     model = Employee
     template_name = 'agreement.html'
+
+
+class PrintConfirmView(View):
+
+    # noinspection PyMethodMayBeStatic
+    def get(self, request):
+        user = request.user
+
+        if user.is_authenticated and user.is_superuser:
+            print(request.user.get_username())
+        else:
+            print("Foo")
+        data = {
+            'okay': True
+        }
+        return JsonResponse(data)

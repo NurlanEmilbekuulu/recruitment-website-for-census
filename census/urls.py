@@ -1,7 +1,7 @@
 from django.urls import path
 
 from census.views import EmployeeCreateView, EmployeeListView, EmployeeDetailView, EmployeeUpdateView, \
-    AgreementDetailView
+    AgreementDetailView, PrintConfirmView
 
 urlpatterns = [
     path('', EmployeeCreateView.as_view()),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('employee/<int:pk>/', EmployeeDetailView.as_view(), name='employee'),
     path('employee/<int:pk>/change/', EmployeeUpdateView.as_view(), name='update'),
     path('employee/<int:pk>/agreement/', AgreementDetailView.as_view(), name='agreement'),
+    path('ajax/print-confirm/', PrintConfirmView.as_view())
 ]

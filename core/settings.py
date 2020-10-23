@@ -32,7 +32,11 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DATE_INPUT_FORMATS': ["%d.%m.%Y", ],
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
 
 MIDDLEWARE = [
@@ -144,6 +148,7 @@ def FILTERS_VERBOSE_LOOKUPS():
     return verbose_lookups
 
 
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
     "https://census-kg.herokuapp.com",
     "http://localhost:8000",

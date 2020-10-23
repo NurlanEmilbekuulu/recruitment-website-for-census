@@ -3,6 +3,7 @@ from io import BytesIO
 import qrcode
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from census.consts import REGION_CHOICES, SERIAL_CHOICES, ROLE_CHOICES
@@ -41,6 +42,7 @@ class Employee(models.Model):
     class Meta:
         verbose_name = _("Кызматкер")
         verbose_name_plural = _('Кызматкерлер')
+        ordering = ['-id']
 
     @property
     def role_str(self):
@@ -69,6 +71,9 @@ class Employee(models.Model):
         )
 
         self.qr_code.save(filename, file, save=False)
+
+    def get_absolute_url(self):
+        return reverse('employee', args=[self.id])
 
 
 class District(models.Model):

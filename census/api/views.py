@@ -1,5 +1,7 @@
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from census.api.serializers import EmployeeSerializer
@@ -13,7 +15,8 @@ class EmployeeViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Employee.objects.all()
+        print(user.get_username())
+        queryset = Employee.objects.none()
         if self.request.user.is_authenticated:
             print("Hello World")
             queryset = Employee.objects.filter(territory__district=self.request.user.profile.district)
@@ -29,3 +32,12 @@ class EmployeeViewSet(ModelViewSet):
             employee.save()
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data)
+
+
+class BadgePrintConfirmView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        print(user.get_username)
+        return Response("Hello World")

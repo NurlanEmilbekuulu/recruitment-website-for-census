@@ -34,21 +34,14 @@
 {% block content %}
     <div id="app" v-cloak>
         <div class="container pt-3 d-flex justify-content-center" style="margin-top: 56px;">
-            <div class="loader-container">
-                <div class="loader d-flex" v-if="save">
-                    <span class="mx-auto my-auto" style="padding-top: 100px;">Сохранение</span>
-                </div>
-            </div>
-
             <div class="form-container">
-                <form @submit="submit">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     {% for field in form.visible_fields %}
                         {% if field.name != "photo" %}
                             <div class="form-group">
                                 <label for="id_{{ field.name }}">{{ field.label }}</label>
-                                {% with vmodel="employee."|add:field.name %}
-                                    {% render_field field class="form-control" v-model=vmodel autocomplete="off" %}
-                                {% endwith %}
+                                {% render_field field class="form-control" autocomplete="off" %}
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -56,12 +49,10 @@
                     <label class="btn btn-primary btn-block mt-3">
                         <i class="fa fa-image"></i>
                         <span>{% trans "Сүрөт жүктөө" %}</span>
-                        <input type="file" name="photo" accept="image/*" id="id_photo"
-                               style="display: none;" ref="photo">
+                        {% render_field form.photo style="display: none;" %}
                     </label>
 
-                    <button type="button" class="btn btn-primary btn-block mt-3 mb-5"
-                            @click="submit">{% trans "Сактоо" %}</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-3 mb-5">{% trans "Сактоо" %}</button>
                 </form>
             </div>
         </div>
@@ -72,64 +63,14 @@
 {% block js %}
 
     <script>
-        Vue.component('button-counter', {
-            delimiters: ['[[', ']]'],
-            data() {
-                return {
-                    count: 0
-                }
-            },
-            template: '<button @click="count++">Счётчик кликов — [[ count ]]</button>'
-        })
-
         let app = new Vue({
             el: '#app',
 
             data: {
-                employee: {
-                    serial: 'ID',
-                    role: 1,
-                    territory: ''
-                },
-                employeeCopy: {},
                 save: false,
             },
 
-            methods: {
-                reset: function (event) {
-                    this.employee = {...this.employeeCopy};
-                },
-
-
-                submit: function (event) {
-                    let self = this;
-                    let fd = new FormData();
-                    for (let key in self.employee) {
-                        fd.append(key, self.employee[key]);
-                    }
-                    fd.append('photo', this.$refs.photo.files.item(0));
-                    axios.post("employees/", fd, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }).then(function (response) {
-                        self.reset();
-                        event.preventDefault();
-                    }).catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    });
-                    event.preventDefault();
-                },
-            },
-
-            mounted() {
-                this.employeeCopy = {...this.employee};
-            },
-
-            created() {
-                this.employeeBeforeEdit = Object.assign({}, this.employee);
-            }
+            methods: {},
         })
     </script>
 
