@@ -9,5 +9,5 @@ urlpatterns = [
     path('employee/<int:pk>/', EmployeeDetailView.as_view(), name='employee'),
     path('employee/<int:pk>/change/', EmployeeUpdateView.as_view(), name='update'),
     path('employee/<int:pk>/agreement/', AgreementDetailView.as_view(), name='agreement'),
-    path('ajax/print-confirm/', PrintConfirmView.as_view())
+    path('ajax/employee/<int:pk>/print-confirm/', PrintConfirmView.as_view(), name='badge-print-confirm')
 ]

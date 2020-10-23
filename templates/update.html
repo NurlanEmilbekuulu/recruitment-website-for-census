@@ -137,7 +137,7 @@
             methods: {
                 print() {
                     $.ajax({
-                        url: '/ajax/print-confirm/',
+                        url: "{% url 'badge-print-confirm' object.id %}",
                         data: {},
                         dataType: 'json',
                         success: function (data) {

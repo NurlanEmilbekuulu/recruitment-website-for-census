@@ -70,11 +70,13 @@ class AgreementDetailView(LoginRequiredMixin, DetailView):
 class PrintConfirmView(View):
 
     # noinspection PyMethodMayBeStatic
-    def get(self, request):
+    def get(self, request, pk):
         user = request.user
+        employee = Employee.objects.get(pk=pk)
 
         if user.is_authenticated and user.is_superuser:
             print(request.user.get_username())
+            employee.generate_qr_code()
         else:
             print("Foo")
         data = {
