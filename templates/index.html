@@ -73,6 +73,7 @@
                 <div id="modal" v-show="crop">
                     <div class="image-container d-flex justify-content-center align-items-center p-3">
                         <img src="{% static 'img/empty.jpg' %}" alt="" id="image">
+                        <button @click="crop=false">Close</button>
                     </div>
                 </div>
             </div>

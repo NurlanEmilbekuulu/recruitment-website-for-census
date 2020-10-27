@@ -18,6 +18,13 @@ class EmployeeCreateForm(forms.ModelForm):
 
         self.fields['territory'].queryset = territory_queryset
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        print(instance.photo)
+        instance.save()
+
+        return instance
+
 
 class EmployeeUpdateForm(forms.ModelForm):
     class Meta:
