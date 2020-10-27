@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, TemplateView
 
 from census.filters import EmployeeFilter
-from census.forms import EmployeeCreateForm, EmployeeUpdateForm
+from census.forms import EmployeeCreateForm, EmployeeUpdateForm, PhotoCropForm
 from census.models import Employee
 
 
@@ -18,6 +18,12 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        photo_crop_form = PhotoCropForm(prefix='crop')
+        context['photo_crop_form'] = photo_crop_form
+        return context
 
 
 class FilteredListView(ListView):

@@ -23,3 +23,10 @@ class EmployeeUpdateForm(forms.ModelForm):
     class Meta:
         model = Employee
         exclude = ['agreement', 'qr_code', 'photo']
+
+
+class PhotoCropForm(forms.Form):
+    x1 = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'x1'}), required=False)
+    y1 = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'y1'}), required=False)
+    x2 = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'x2'}), required=False)
+    y2 = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'y2'}), required=False)
