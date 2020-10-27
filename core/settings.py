@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'widget_tweaks',
-    'cropperjs',
     'accounts',
     'census',
 ]
