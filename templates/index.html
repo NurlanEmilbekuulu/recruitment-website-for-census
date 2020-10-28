@@ -43,6 +43,11 @@
             height: 500px;
         }
 
+        .cropper-action{
+            width: 500px;
+            height: 500px;
+        }
+
         .image-container > img {
             max-width: 100%;
             object-fit: contain;
@@ -76,12 +81,14 @@
                 </form>
 
                 <div id="modal" v-show="crop">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <div class="image-container">
+                    <div class="h-100">
+                        <div class="image-container mx-auto">
                             <img src="{% static 'img/empty.jpg' %}" alt="" id="image">
                         </div>
+                        <div class="cropper-action mx-auto mt-3">
+                            <button class="btn btn-primary" @click="crop=false">Close</button>
+                        </div>
                     </div>
-                    <button @click="crop=false">Close</button>
                 </div>
             </div>
         </div>
