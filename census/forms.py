@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from django import forms
 
 from census.models import Employee, Territory
@@ -17,13 +19,6 @@ class EmployeeCreateForm(forms.ModelForm):
             territory_queryset = Territory.objects.filter(district=user.profile.district)
 
         self.fields['territory'].queryset = territory_queryset
-
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        print(instance.photo)
-        instance.save()
-
-        return instance
 
 
 class EmployeeUpdateForm(forms.ModelForm):

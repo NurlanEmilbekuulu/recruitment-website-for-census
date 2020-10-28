@@ -1,11 +1,17 @@
+from io import BytesIO
+
+from PIL import Image
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, TemplateView
 
 from census.filters import EmployeeFilter
 from census.forms import EmployeeCreateForm, EmployeeUpdateForm, PhotoCropForm
 from census.models import Employee
+from census.utils import rotate_image
 
 
 class EmployeeCreateView(LoginRequiredMixin, CreateView):
@@ -24,6 +30,28 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
         photo_crop_form = PhotoCropForm(prefix='crop')
         context['photo_crop_form'] = photo_crop_form
         return context
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        crop = PhotoCropForm(self.request.POST, prefix='crop')
+        if crop.is_valid():
+            buffer = BytesIO()
+            x1 = int(crop.cleaned_data['x1'])
+            y1 = int(crop.cleaned_data['y1'])
+            x2 = int(crop.cleaned_data['x2'])
+            y2 = int(crop.cleaned_data['y2'])
+            image = form.cleaned_data['photo']
+            img = Image.open(image)
+            profile_img = img.crop((x1, y1, x2, y2))
+            profile_img.save(buffer, format='JPEG')
+            filename = f'profile.jpg'
+            file = InMemoryUploadedFile(
+                buffer, None, filename, 'image/jpeg', buffer.tell(), None
+            )
+            instance.photo = file
+            instance.save()
+
+        return super().form_valid(form)
 
 
 class FilteredListView(ListView):

@@ -29,13 +29,18 @@
             }
         }
 
-        .image-container {
+        #modal {
             position: fixed;
             left: 0;
             right: 0;
             top: 56px;
             bottom: 0;
             display: block;
+        }
+
+        .image-container {
+            width: 500px;
+            height: 500px;
         }
 
         .image-container > img {
@@ -71,10 +76,12 @@
                 </form>
 
                 <div id="modal" v-show="crop">
-                    <div class="image-container d-flex justify-content-center align-items-center p-3">
-                        <img src="{% static 'img/empty.jpg' %}" alt="" id="image">
-                        <button @click="crop=false">Close</button>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="image-container">
+                            <img src="{% static 'img/empty.jpg' %}" alt="" id="image">
+                        </div>
                     </div>
+                    <button @click="crop=false">Close</button>
                 </div>
             </div>
         </div>
