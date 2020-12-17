@@ -37,7 +37,7 @@ class EmployeeViewSet(ModelViewSet):
 class BadgePrintConfirmView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
         user = request.user
-        print(user.get_username)
         return Response("Hello World")
